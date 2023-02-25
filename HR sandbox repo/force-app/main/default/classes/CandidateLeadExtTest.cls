@@ -20,6 +20,7 @@ public class CandidateLeadExtTest {
        PageReference ref = Page.CandidateLead;
         Test.setCurrentPage(ref);
         candLead.save();
+        
         Test.stopTest();
         
          }
