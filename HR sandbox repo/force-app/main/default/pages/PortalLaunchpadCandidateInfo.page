@@ -1,0 +1,4 @@
+<apex:page controller="TRGTFCMS.JobApplicationComponentController1" title="ProjectListIframe"
+        showHeader="false" sideBar="false" action="{!init}" cache="false" language="{!selectLanguage}" id="page">
+      <apex:iframe src="{!$Site.CurrentSiteUrl}/apex/LaunchpadCandidateInfo?cId={!realContactId}" scrolling="true" id="theIframe" width="100%" height="1500px"/>
+ </apex:page>

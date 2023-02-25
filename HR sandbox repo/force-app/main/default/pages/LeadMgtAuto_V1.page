@@ -1,0 +1,943 @@
+<apex:page standardController="Lead" extensions="LeadMgmt" tabstyle="Lead" showHeader="false" sidebar="false" language="en_Us"
+  docType="html-5.0">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+      crossorigin="anonymous" />-->
+    <apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" />
+    <apex:includeScript value="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js" />
+    <apex:stylesheet value="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css" />
+    <apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" />
+    <apex:stylesheet value="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css" />
+    <apex:includeScript value="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js" />
+    <apex:includeScript value="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment.min.js" />
+    <apex:includeScript value="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js" />
+    <!--<apex:stylesheet value="https://jqueryvalidation.org/files/demo/site-demos.css"/> -->
+
+    <script type="text/javascript"> 
+      d$ = jQuery.noConflict();
+     
+      //To set default values for First Name, Last Name and Email 
+      d$(function () {
+     // d$("#myForm").css('border','1px solid red');
+        d$("#myForm").submit(function () {
+         //Form validation if Email Id and Job Link are null
+          if ((d$("#email").val() == '') && (d$("#joblink").val() == '')) {
+            alert("Please enter Email Address or Job Link");
+            return false;
+          }
+          else {
+            alert("Thank you for sharing Job details"); 
+              // window.location.href = 'http://mydomain.com/thanks.html';
+              //var url = document.URL?cId=0031Q000021lZEVQA2;
+             
+              //Add default values when Employer Name is not available
+               if (d$("#Name").val() == "") {
+              d$("#first_name").val('Recruiting');
+              d$("#last_name").val('Team');    
+              }
+              //Split Employer Full Name into First Name and Last Name
+              else {  
+                  var fullname = d$("#Name").val().split(" ");
+                  var fname = fullname[0];
+                  d$("#first_name").val(fname);
+                  var lname = fullname[fullname.length - 1];
+                      if(lname !== null || lname !== ""){
+                          d$("#last_name").val(lname);   
+                          }
+                      else{
+                          d$("#last_name").val(fname);
+                          }
+                   }
+              
+             //Add default Email when Email Address is not provided
+            
+            //To specify date format as 'MM/DD/YYYY'    
+            d$(".datepicker").datepicker({maxDate: '0'});
+            d$(document.getElementById("datepicker")).value = moment(document.getElementById("datepicker").value).format("MM/DD/YYYY");
+            //Reset form
+              //d$(document.myForm.reset());  
+            //Post Thank You message on the screen  
+             // alert("Thank you for sharing Job details");   
+              //window.parent.location.reload();
+              return true;
+                d$("#myForm").submit();
+          }
+        });
+
+      });
+
+      //To support datepicker in all the browsers
+      d$(function () {
+         //d$("#datepicker12").datepicker();
+        var today = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
+        d$("#datepicker12").datepicker({maxDate: today});  
+      });
+
+      //To add sort, search and pagination to Application Status tab
+      d$(function () {
+         d$('[id$="leadStatus"]').DataTable({});    
+      });
+      //To add sort, search and pagination to Application Job opening tab
+      d$(function () {
+         d$('[id$="jobopening"]').DataTable({});    
+      });
+      
+      
+      /*   function refreshData(){
+          d$("#leadStatus").DataTable().clear().draw();
+          }
+      });*/
+
+    </script>
+
+    <!-- To strip Job Portal name from Job Link field -->
+      <script> 
+      /*  function jobPortal() {
+        var getURL = document.getElementById("joblink").value;
+        var trim1 = getURL.substring(getURL.indexOf(".") + 1);
+        var trim2 = trim1.substring(trim1.indexOf("."), 0);
+        var result = trim2.charAt(0).toUpperCase() + trim2.slice(1)
+        document.getElementById("JobPortal").value = result;
+      } */
+    </script>
+      
+   
+    <style type="text/css">
+      * {
+        box-sizing: border-box;
+      }
+
+      input[type=text],
+      select,
+      textarea {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        resize: vertical;
+        margin-top: 0px;
+      }
+      input,
+      input::-webkit-input-placeholder {
+      font-size: 14px;
+     
+        }
+      label {
+        padding: 12px 12px 8px 0px;
+        display: inline-block;
+        margin-bottom: .0rem;
+      }
+
+      input[type=submit] {
+        background-color: #7e8be4;
+        color: white;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        float: right;
+
+      }
+
+
+      .container {
+        border-radius: 5px;
+        
+        <!-- background-color: #f2f2f2;-->
+        background-color: #FFFFFF;
+        padding: 25px;
+        width:100%;
+        
+      }
+
+      .col {
+        width: 100%;
+        
+      }
+
+      .col-button {
+        float: left;
+        width: 35%;
+        margin-top: 6px;
+        margin-left: 20%;
+        margin-right: 10%;
+        margin-bottom: 12px;
+      }
+
+      .col-25 {
+        float: left;
+        width: 35%;
+        margin-top: px;
+        margin-left: 10%;
+        
+        margin-right: 10%;
+        margin-bottom: 12px;
+      }
+
+      .col-75 {
+        float: left;
+        width: 35%;
+        margin-top: 6px;
+        margin-right: 10%;
+      }
+
+      /* Clear floats after the columns */
+
+      .row:after {
+        content: "";
+        display: table;
+        clear: both;
+      }
+
+      /* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+
+      @media screen and (max-width: 600px) {
+        .col-25,
+        .col-75,
+        input[type=submit] {
+          width: 100%;
+          margin-top: 0;
+        }
+      }
+
+      div.dataTables_length select {
+        width: 75px;
+      }
+
+      div.dataTables_filter select {
+        width: 75px;
+      }
+        .tabspace{
+            margin-left: 0px;
+        }
+        .tabspace1{
+            margin-left: 122px;
+        }
+      .rich-tab-header {
+        font-size: 15px;
+        padding: 150px;
+        cursor: pointer;
+        width: 300px;
+        margin-top: 500px;
+        margin-left: 50px;
+
+      }
+
+      th {
+        font-size: 14px;
+        border: 1px solid #CDCDCD;
+      }
+
+      .table td,
+      .table th,
+      .table thead tr th,
+      body .bPageBlock .detailList tr th {
+        border: 1px solid #8f8a8a! important;
+      }
+
+      .table-responsive {
+        <!--min-height: 800px;
+        -->min-height: auto;
+
+
+
+      }
+
+      .table-learning {
+        min-height: 200px;
+        border: 0px;
+
+      }
+
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+        color: #222;
+        font-size: 14px;
+      }
+
+      .rich-tab-active.activeTab {
+        background: #4C50A2;
+        color: #FFF;
+        
+      }
+
+
+      .myFormStyle {
+        <!-- background-color: #9c80c2;
+        --><!--background-color: #4a3ea3;
+        -->background-color: #fff;
+      }
+
+      .headerRow,
+      thead {
+        background-color: #4c50a2;
+        line-height: 25px;
+        color: white;
+        text-align: center;
+
+
+
+      }
+
+      .pbSubheader.brandTertiaryBgr.tertiaryPalette {
+        background-color: #4c50a2;
+        color: purple;
+        margin-left: 0px;
+        width: 100%;
+
+
+      }
+
+      .table thead th {
+        width: 18%;
+
+      }
+
+      .table thead th:nth-child(1) {
+        width: 13% ! important;
+      }
+
+      .table thead th:nth-child(2) {
+        width: 15% ! important;
+      }
+
+      .table thead th:nth-child(3) {
+        width: 11% ! important;
+      }
+
+      .table thead th:nth-child(4) {
+        width: 10% ! important;
+      }
+
+      .table {
+        table-layout: absolute;
+        word-wrap: break-word;
+        padding-left: 0px;
+
+        <!--white-space: pre-wrap;
+        --->
+      }
+
+      .image {
+        <!-- background-color: #9c80c2;
+        -->background-color: #00000;
+        margin-top: 500px;
+      }
+
+      .bPageBlock .pbTitle {
+        width: 100%;
+        text-align: center;
+        color: #4c50a2;
+        font-weight: 600;
+      }
+
+      .pbheader h3 {
+        white-space: pre;
+        position: left;
+        color: #4c50a2;
+        font-weight: 600;
+      }
+
+      .background_img {
+        width: 100%;
+      }
+
+      .headerRow {
+        background-color: #4c50a2;
+        line-height: 25px;
+        color: white;
+        text-align: center;
+      }
+
+      .hideTableHeader {
+        display: none;
+      }
+
+
+      .par {
+        font-size: 18px;
+        text-indent: -4em;
+        margin-left: 4em;
+      }
+
+      .fre-site-logo {
+        display: inline-block;
+        padding: 10px 0;
+        margin-right: 42px;
+        line-height: 40px;
+        vertical-align: middle;
+
+      }
+
+      .fre-site-logo>a {
+        a {
+          : unset;
+          display: inline-block;
+          height: 60px;
+        }
+        ;
+        display: inline-block;
+        height: 60px;
+      }
+
+      .fre-site-logo>a img {
+        max-height: 100%;
+        max-width: 100%;
+      }
+
+
+      .title-text {
+        font: 600 38px/42px 'Raleway', sans-serif;
+        position: left;
+        padding: 0 0 12px !important;
+        margin: 0 0 20px !important;
+        text-align: center;
+        margin: 0;
+        font-size: 20px;
+        font-weight: 600;
+        color: #4c50a2;
+      }
+
+      .title-textFeedback {
+        font: 600 38px/42px 'Raleway', sans-serif;
+        position: left;
+        text-align: center;
+        font-size: 20px;
+        top: 100%;
+        color: #4c50a2;
+      }
+
+      .title-text:after {
+        width: 56px;
+        height: 2px;
+        background-color: #4b4fa1;
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        content: '';
+        margin: 0 0 0 -28px;
+      }
+
+      table td,
+      table th {
+        padding: 0px 0px 0px 0px ! important;
+        padding-left: 5px;
+      }
+
+      .rich-tab-bottom-line {
+        border-bottom-color: #C0C0C0;
+        border-bottom-style: solid;
+        border-bottom-width: 1px;
+      }
+
+      .rich-tabpanel-content table tr td {
+        padding: 5px ! important;
+        
+      }
+
+      .rich-tabhdr-side-cell table tr td,
+      .rich-tabpanel-content table tr th {
+        padding: 10px ! important;
+      }
+
+      td.rich-tabpanel-content .table {
+        margin-top: 13px;
+        background: #FFF;
+        
+
+      }
+
+      td.rich-tabpanel-content {
+        background: #FFF;
+        border: 0px;
+
+      }
+
+      form {
+        width: 100%
+      }
+
+
+
+      body .pbBody table.list tr th,
+      body .pbBody table.list tr td,
+      body .bRelatedList .pbBody table.list,
+      body .apexp .pbBody table.list {
+        background: transparent;
+        padding-left: 0px;
+        
+        border-color: #000;
+        margin-left: 200px;
+        width: 100%;
+      }
+
+      .apexp .bPageBlock.apexDefaultPageBlock .pbBody {
+        margin: 0px;
+        
+      }
+
+      .rich-tabpanel-content table tr td {
+        padding: 5px ! important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        margin-left: 50px !important;
+      }
+
+      bEditBlock .pbHeader>table,
+      .apexp .bPageBlock.apexDefaultPageBlock .pbHeader>table,
+      #ep.bLayoutBlock .pbHeader>table {
+        border-bottom: 0px solid #dbdbdb;
+      }
+
+      body .bPageBlock,
+      body #bodyCell .bResource .secondaryPalette,
+      body .secondaryPalette.bPageBlock,
+      body .individualPalette .secondaryPalette.bPageBlock,
+      body .bodyDiv .genericTable,
+      body .genericPageBlockTable,
+      body .bodyDiv .bSubBlock,
+      body .bComponentBlock .bPageBlock,
+      body .bMyDashboard .bPageBlock,
+      body.rlHoverFrame .bPageBlock,
+      body.subjectSelectionPopup div.choicesBox,
+      body.lookupTab .secondaryPalette.bPageBlock,
+      body.popupTab .secondaryPalette.bPageBlock,
+      body.UserTagStatsPage .secondaryPalette.bPageBlock {
+
+        background: #FFF ! important;
+        border: 0;
+        width: 100%;
+        padding-left: 0px;
+        margin-left: 0px;
+      }
+
+      <!-- Remove border for the questions in Feedback page and achievement page -->#lpPage\:myForm\:myLPPage\:feedbackBlock\:feedbackBlocksection table tbody tr td,
+      #lpPage\:myForm\:myLPPage\:achievementBlock\:achievementBlocksection table tbody tr td {
+        border: none;
+      }
+
+
+      }
+
+      table td,
+      table th {
+        padding: 5px 5px;
+      }
+
+      form {
+        width: 100%
+      }
+
+      .popup-content p {
+        margin: 10px;
+      }
+
+      .popup-content h2 {
+        position: relative;
+        left: 35%;
+      }
+
+      .custPopup {
+        background-color: white;
+        border-width: 3px;
+        border-style: solid;
+        z-index: 9999;
+        left: 50%;
+        padding: 11px;
+        position: absolute;
+        width: 600px;
+        margin-left: -240px;
+        top: 100px;
+      }
+
+      .custPopup .btn {
+        position: bottom;
+        background-color: white;
+        border: none;
+        font-size: 15px;
+        color: rgb(76, 80, 162);
+      }
+
+      .popupBackground {
+        background-color: black;
+        opacity: 0.20;
+        filter: alpha(opacity=20);
+        position: absolute;
+        width: 100%;
+        height: 230%;
+        top: 0;
+        left: 0;
+        z-index: 9998;
+      }
+
+      .rich-tabhdr-side-cell {
+        border-top: none;
+      }
+
+      .rich-tabhdr-side-border {
+        background-image: none;
+      }
+
+
+      .activeTab {
+        background-color: darkgrey;
+        background-image: none;
+        border: none;
+        
+      }
+
+      .inactiveTab {
+        background-color: lightgrey;
+        background-image: none;
+        border: none;
+      }
+
+      .radio-inline2 {
+        padding-right: 10px !important;
+      }
+
+      .datePicker {
+        position: absolute;
+        width: 420px;
+        height: auto;
+        z-index: 9999
+      }
+
+      /* The Modal (background) */
+
+      .modal {
+        display: none;
+        /* Hidden by default */
+        position: fixed;
+        /* Stay in place */
+        z-index: 1;
+        /* Sit on top */
+        padding-top: 100px;
+        /* Location of the box */
+        left: 0;
+        top: 0;
+        width: 100%;
+        /* Full width */
+        height: 100%;
+        /* Full height */
+        overflow: auto;
+        /* Enable scroll if needed */
+        background-color: rgb(0, 0, 0);
+        /* Fallback color */
+        background-color: rgba(0, 0, 0, 0.4);
+        /* Black w/ opacity */
+      }
+
+      /* Modal Content */
+
+      .modal-content {
+        background-color: #fefefe;
+        margin: auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 50%;
+        font-color: #9370DB;
+      }
+
+      /* The Close Button */
+
+      .close {
+        color: #aaaaaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+      }
+
+      .close:hover,
+      .close:focus {
+        color: #000;
+        text-decoration: none;
+        cursor: pointer;
+      }
+        .media (min-width: 768px)
+.container, .container-md, .container-sm {
+    max-width: 920px;
+}
+.tooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+    </style>
+
+  </head>
+
+  <div class="container">
+
+    <div class="row">
+     <div class="col-md-12">
+    <apex:pageBlock >
+    <apex:pageMessages />
+      <apex:pageblockSection columns="1">
+
+          <apex:tabPanel switchType="client" id="JobDetailsTab" value="{!selectedTab}"  tabClass="activeTab" inactiveTabClass="inactiveTab" contentStyle="font-size: 14px;"
+            headerSpacing="0px">
+            <apex:tab label="Listings" name="AppliedJobs" id="AppliedJobDetails">
+              <div class="container divTab">
+                 <apex:form >
+                  <apex:inputHidden value="{!candName}" id="myHiddenVar" /> 
+                  </apex:form>
+                                   <form id="myForm" name="myForm" action="{!WebToLeadURL}" method="POST">
+
+    <!--<input type="hidden" name="debug" value="1"/>-->
+    <!--<input type="hidden"  name="recordType" id="recordType" value="Prospect_Lead"/>-->
+    <!--<input type="hidden"  name="RecordTypeId" id="RecordTypeId" value="Prospect_Lead"/>-->
+    
+                             
+ <!--<input type="hidden" name="debugEmail"                                  
+  value="intopssalesmarketing@gmail.com"/>-->
+                      <input type="hidden" name="oid" value="{!OrganizationId}" />
+                      <input type="hidden" name="retURL" value="https://mompreneur.secure.force.com/LeadMgtAuto_V1?cId={!contactId}"/>
+                      <input type="hidden" name="lead_source" value="Job By Candidate" />
+                      <input type="hidden" name="Status_of_Application__c" value="Open" />
+                      <input type="hidden" name="Lead_Generator__c" Value="{!candName}" onLoad="document.getElementById('{!$Component.myHiddenVar}').value = this.value;" />
+                      <input type="hidden" name="first_name" id="first_name"/>
+                      <input type="hidden" name="last_name" id="last_name"/>
+                          
+                <div class="col-25">
+                          <label for="company"><b>Company Name</b></label><span style="color:red">*</span>
+                        <input type="text" id="company" name="company" placeholder="Company name" required="required" oninvalid="this.setCustomValidity('Please Enter Company Name')"
+                          oninput="setCustomValidity('')" />
+                      </div>
+                    
+                     <div class="col">
+                    <div class="row">
+                      <div class="col-75">
+                          <label for="full_Name"><b> Contact Name</b></label>
+                          <div class="tooltip"><img src="/img/s.gif" alt="" class="infoIcon" title=""/>
+                       <span class="tooltiptext">If not known put NA </span>
+                       </div>
+                        <input type="text" id="Name" name="Name" placeholder="Employer/ Recuiter Name" />
+                      
+                     </div>
+                     </div>
+
+                   
+                      <div class="col-25">
+                          <label for="Job Link"><b>Job Link</b></label><span style="color:red">*</span>
+                        <input class="min1" type="text" required="required" id="joblink" name="Job_Link__c" placeholder="Job Link is required" maxlength="255" />
+                      </div>
+                       <div class="row">
+                      <div class="col-75">
+                          <label for="email"><b>Email Address</b></label>
+                          <div class="tooltip"><img src="/img/s.gif" alt="" class="infoIcon" title=""/>
+                       <span class="tooltiptext">If not known put NA </span>
+                       </div>
+                        <input class="min1" type="text" id="email" name="email" maxlength="80" placeholder=" Employer/Recuiter Email"/>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-25">
+                          <label for="Job Title"><b>Job Title</b></label>
+                        <span style="color:red">*</span>
+                        <input type="text" id="jobtitle" name="Job_Title__c" maxlength="255" placeholder="Job Title" required="required" oninvalid="this.setCustomValidity('Please Enter Job Title')"
+                          oninput="setCustomValidity('')" />
+                         
+                      </div>
+                      <div class="col-75">
+                          <label for="url"><b>Company Website</b></label>
+                            <input type="text" id="url" name="url" size="20" maxlength="80" placeholder="Website Address"/>
+                         
+                      </div>
+                    </div>
+
+
+                   <div class="row">
+                      <div class="col-25">
+                          <label for="subject"><b>Share with other moms</b></label>
+                          <input id="00N3u00000PfPDt" name="00N3u00000PfPDt" type="checkbox" value="1" size="20" maxlength="40" />
+                         
+                        
+                      </div>
+                      </div>
+
+
+                    <div class="row">
+                      <div class="col-25">
+                          <label for="How Resume Submitted"><b>How Resume Submitted</b></label>
+                        <select id="HowResumeSubmitted" name="How_Resume_Submitted__c" title="How Resume Submitted">
+                          <option value="--None--">None</option>
+                          <option value="Job Portal">Job Portal</option>
+                          <option value="Company Website">Company Website</option>
+                          <option value="Applied by Email">Applied by Email</option>
+                        </select>
+                      </div>
+                       
+                                         
+                       
+                      <div class="col-75">
+                        <label for="Ifapplieddateresumesubmitted"><b>Resume Submitted Date</b></label>
+                        <input type="text" id="datepicker12" name="Date_Resume_Submitted__c" placeholder="Resume Submission Date" size="50" />
+                      </div>
+                    </div>
+                   
+    
+
+                        
+                      <div class="row">
+                      <div class="col-25">          
+                      
+                          <label for="How I Heard About This Job"><b>How I Heard About This Job</b></label>
+                        <select id="Heard About This Job" name="How_I_Heard_About_This_Job__c" title="How I Heard About This Job">
+                          <option value="--None--">Please Select</option>
+                          <option value="Job Portal">Job Portal</option>
+                          <option value="Social Media">Social Media</option>
+                          <option value="References">References</option>
+                        </select>
+                        
+                      </div>
+                      <div class="col-75">
+                        <label for="Interested For Applying Job"><b>Resume Submission Status</b></label>
+                        <span style="color:red">*</span>
+                         <div class="tooltip"><img src="/img/s.gif" alt="" class="infoIcon" title=""/>
+                       <span class="tooltiptext">If you need further help to apply please select "Intested to Apply" </span>
+                       </div>
+                        <select id="Interested_For_Applying_Job__c" name="Interested_For_Applying_Job__c" title="Interested For Applying Job" required="required"
+                          oninvalid="this.setCustomValidity('Please select an item in the list. ')" oninput="setCustomValidity('')">
+                          <option label="Please Select" value=""></option>
+                          <option value="Applied">Applied</option>
+                          <option value="Interested to Apply">Interested to Apply</option>
+                          <option value="Sharing a Job Posting">Sharing a Job Posting</option>
+                          </select>
+                      </div>                      
+                    </div>
+                      
+                       <div class="row">
+                      <div class="col-25">
+                          <label for="subject"><b>Job Description</b></label>
+                        <textarea id="JobDescription" name="Job_Description__c" type="text" wrap="soft" placeholder="Write something about Job Description.."
+                          style="height:150px;width: 400px;"></textarea>
+                      </div>
+                      <div class="col-75">
+                          <label for="Notes/Comments"><b>Notes/Comments</b></label>
+                        <textarea id="Notes" name="Notes_Comments__c" type="text" wrap="soft" placeholder="Notes to the Sales Team....."
+                          style="height:150px;width: 400px;"></textarea>
+                        
+                       
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-button">
+                        <input type="submit" name="submit" value="Submit" id="myBtn" />
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </apex:tab>
+              
+           <apex:tab label="Status" name="Status" id="StatusOfApplication">
+             <apex:actionSupport event="onfocus" reRender="leadStatus" immediate="true"/>
+        <!--<apex:form >-->
+            <!-- <apex:commandButton id="refreshFramebtn" value="Refresh" styleClass="btn" style="color: #FFF;text-decoration:none;background: #4c50a2;padding: 5px;position:absolute;left:90%;right:10%;"
+                         onclick="refreshFrame();">
+            </apex:commandButton></apex:form>-->
+                <!--  <apex:actionFunction action="{!RefreshFunc}" immediate="true" reRender="leadStatus"/>-->
+                 
+              <div class="container divTab">
+                <div class="table-responsive">
+                 <!-- <apex:variable value="{!1}" var="rowNum" /> -->
+                  <apex:dataTable id="leadStatus" value="{!jobLeads}" styleClass="table table-striped" var="l" border="1" rowClasses="odd,even" columnsWidth="25%,42%,10%,12%" >
+                 <!--   <apex:column headerValue="Id" style="text-align:left; width:150px;padding-left:5px;">
+                      {!rowNum}
+                      <apex:variable var="rowNum" value="{!rowNum + 1}" />
+                    </apex:column> -->
+                    <apex:column headerValue="Job Title" value="{!l.Job_Title__c}" style="text-align:left; width:20%" />
+                    <apex:column headerValue="Job Link" value="{!l.Job_Link__c}" style="text-align:left; width:20%" />
+                    <!--<apex:column headerValue="Company Name" value="{!l.Company}" style="text-align:left; width:20%" />-->
+                    <apex:column headerValue="Job Status" value="{!l.Status}" style="text-align:left; width:20%" />
+                    <!--<apex:column headerValue="Job Applied Date" value="{!l.Date_Resume_Submitted__c}" style="text-align:left; width:20%" />-->
+                      <!-- <apex:column headerValue="Job Applied Date" value="{!l.Date_Resume_Submitted__c}" style="text-align:left; width:20%" /> -->
+                      <apex:column headerValue="Jobs Applied Date" style="text-align:left; width:20%">
+                          <apex:outputText value="{0,date,MM/dd/yyyy}">
+                            <apex:param value="{!l.Date_Resume_Submitted__c}"/>
+                         </apex:outputText>
+                      </apex:column>    
+                  </apex:dataTable>
+                </div>
+              </div>           
+            </apex:tab>
+              
+              
+              
+              
+              
+              
+             <apex:tab label="Job Openings" name="Job Openings" id="StatusOfApplication3">
+             
+             
+             
+    
+    <apex:form >
+        <apex:pageBlock >
+        <apex:dataTable id="jobopening" value="{!jobLeads1}" styleClass="table table-striped" var="a" border="1" rowClasses="odd,even" columnsWidth="25%,42%,10%,12%" >
+                 <!--   <apex:column headerValue="Id" style="text-align:left; width:150px;padding-left:5px;">
+                      {!rowNum}
+                      <apex:variable var="rowNum" value="{!rowNum + 1}" />
+                    </apex:column> -->
+                    <apex:column headerValue="Contact name" value="{!a.name}" style="text-align:left; width:20%" />
+                    <apex:column headerValue="Job Title" value="{!a.Job_Title__c}" style="text-align:left; width:20%" />
+                    <apex:column headerValue="Job Link" value="{!a.Job_Link__c}" style="text-align:left; width:20%" />
+                    <!--<apex:column headerValue="Company Name" value="{!a.Company}" style="text-align:left; width:20%" />-->
+                    <apex:column headerValue="Job Status" value="{!a.Status}" style="text-align:left; width:20%" />
+                    <!--<apex:column headerValue="Job Applied Date" value="{!a.Date_Resume_Submitted__c}" style="text-align:left; width:20%" />-->
+                      <!-- <apex:column headerValue="Job Applied Date" value="{!a.Date_Resume_Submitted__c}" style="text-align:left; width:20%" /> -->
+                      <apex:column headerValue="Jobs Applied Date" style="text-align:left; width:20%">
+                          <apex:outputText value="{0,date,MM/dd/yyyy}">
+                            <apex:param value="{!a.Date_Resume_Submitted__c}"/>
+                         </apex:outputText>
+                      </apex:column>    
+                  </apex:dataTable>
+            
+        </apex:pageBlock>
+    </apex:form>
+
+
+                           </apex:tab>
+                 
+          </apex:tabPanel>
+           <script type="text/javascript">
+    function callsaveStatusAction()
+    {
+        callsaveStatus();
+    }
+          
+    function refreshFrame()
+    {
+        
+        var refFrame = document.getElementId('theIframe');
+        refFrame.src = refFrame.src;
+       
+    }
+    </script>
+      </apex:pageblockSection>
+    </apex:pageBlock>
+        </div></div></div>
+</apex:page>

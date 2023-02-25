@@ -1,0 +1,39 @@
+<apex:page standardController="Contact" sidebar="false" tabStyle="Contact" extensions="paperworkAttachmentController" id="pg">   
+    <script>   
+    function validate() {                
+        var sopFileName =  document.getElementById('{!$Component.frm.pb.pbs.pbsisop.sopFile}').value;
+        var agreementFileName = document.getElementById('{!$Component.frm.pb.pbs.pbsiagreement.agreementFile}').value;        
+        if (!sopFileName.toUpperCase().includes("SOP") || !agreementFileName.toUpperCase().includes("AGREEMENT")){
+            alert('One of the files seems to be missing or naming convention is improper. Please upload the correct files.');       
+       } else {
+            callSave();
+        }           var agreementFileName = document.getElementById('{!$Component.frm.pb.pbs.pbsiagreement.agreementFile}').value;        
+        if (!sopFileName.toUpperCase().includes("SOP") || !agreementFileName.toUpperCase().includes("AGREEMENT")){
+            alert('One of the files seems to be missing or naming convention is improper. Please upload the correct files.');       
+       } else {
+            callSave();
+        }       
+    }                    
+    </script>    
+    <apex:form id="frm">     
+        <apex:actionFunction name="callSave" action="{!save}"/>
+        <apex:pageBlock title="Upload signed MR documents" id="pb">     
+             <apex:pageMessage summary="Please make sure to send MR paperwork to candidate." severity="warning" rendered="{!NOT(contact.MR_Paperwork_Sent__c)}"/>
+        <apex:pageMessages />
+
+            <apex:pageBlockSection columns="1" id="pbs" rendered="{!contact.MR_Paperwork_Sent__c}">                                        
+                   <apex:pageBlockSectionItem id="pbsisop">
+                        <apex:outputLabel value="MR SOP"/>                       
+                        <apex:inputFile value="{!att1.body}" filename="{!att1.name}" id="sopFile"/>                        
+                    </apex:pageBlockSectionItem>        
+                    <apex:pageBlockSectionItem id="pbsiagreement">
+                        <apex:outputLabel value="MR Agreement"/>                       
+                        <apex:inputFile value="{!att2.body}" filename="{!att2.name}" id="agreementFile"/>                        
+                    </apex:pageBlockSectionItem>  
+            </apex:pageBlockSection>                  
+            <apex:outputLabel value="Error in the files" id="error" style="display:none;" />             
+            <apex:commandButton value="Save" rendered="{!contact.MR_Paperwork_Sent__c}" onclick="validate();return false;" />
+            <apex:commandButton value="Close" action="{!close}"/>        
+        </apex:pageBlock>           
+    </apex:form>     
+</apex:page>

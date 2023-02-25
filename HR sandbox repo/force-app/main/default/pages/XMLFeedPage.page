@@ -1,0 +1,4 @@
+<apex:page controller="XMLFeedController" action="{!xmlFeed}"
+    contentType="text/xml; charset=utf-8" showHeader="false" standardStylesheets="false" sidebar="false">
+{!output}
+</apex:page>

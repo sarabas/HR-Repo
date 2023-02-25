@@ -1,0 +1,122 @@
+<apex:page controller="ProjectsChecklist" >
+
+<apex:form >
+	<apex:pageMessages ></apex:pageMessages>
+	<apex:actionFunction name="callSave" action="{!Save}"/>
+    <apex:actionFunction name="callSaveComplete" action="{!SaveAndComplete}"/>
+    <apex:pageblock title="Search Criteria">
+		<big>Checklist Category</big>
+		
+		&nbsp;&nbsp;&nbsp;
+		
+		<apex:selectList size="1" value="{!selectedCategoryName}">
+			<apex:selectOptions value="{!categoryNames}"/>
+		</apex:selectList>
+		
+		&nbsp;
+		
+		<big>Checklist Name</big>
+		
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		
+		<apex:inputText id="textbox" value="{!searchText}" size="20" style="height:13px;font-size:11px;" />
+	
+		&nbsp;&nbsp;&nbsp;
+		
+		<apex:commandButton action="{!search}" value="Search" />
+    </apex:pageBlock>
+	
+	<apex:pageblock >
+	
+		<apex:pageBlockButtons >
+			<apex:commandButton value="Save" onclick="validate();return false;" />
+			<apex:commandButton value="Save and Complete" onclick="validateSaveComplete();return false;" />
+			<apex:commandButton Value="Cancel" action="{!cancel}"/>
+		</apex:pageBlockButtons>
+		
+        <apex:pageBlockTable value="{!wrapChecklistLst}" var="c">
+			<apex:column >
+				<apex:facet name="header">
+					<input type="checkbox" onclick="checkAll(this)" />
+				</apex:facet>
+				<apex:inputCheckbox value="{!c.selected}" id="checkedone" />
+			</apex:column>
+			<apex:column headerValue="Subject">
+				<apex:inputField value="{!c.checklist.AVTRRT__Subject__c}" required="true"/>
+			</apex:column>
+			<apex:column headerValue="Comments">
+				<apex:inputText value="{!c.checklist.AVTRRT__Description__c}"/>
+			</apex:column>
+            <apex:column headerValue="Assigned To">
+				 <apex:inputField value="{!c.task.OwnerId}" />
+			</apex:column>
+            <apex:column headerValue="Due Date">
+				 <apex:inputField value="{!c.task.ActivityDate}" />
+			</apex:column>
+            <apex:column headerValue="Related To">
+				 <apex:inputField value="{!c.task.WhatId}" />
+			 </apex:column>
+             <apex:column headerValue="Priority">
+				 <apex:inputField value="{!c.task.Priority}" />
+			 </apex:column>
+             <apex:column headerValue="Status">
+				 <apex:inputField value="{!c.task.Status}" />
+			 </apex:column>
+                    
+        </apex:pageBlockTable>
+			</apex:pageblock>
+    
+    
+	
+</apex:form>
+
+<script>
+	function checkAll(cb) {
+		var inputElem = document.getElementsByTagName("input");
+		
+		for (var i=0; i<inputElem.length; i++) {
+			if (inputElem[i].id.indexOf("checkedone")!=-1) {
+				inputElem[i].checked = cb.checked;
+			}
+		}
+	}
+   function validate(){
+    
+     var OptSelected = false;
+       var inputElem = document.getElementsByTagName("input");
+      
+       for (var i=0; i<inputElem.length; i++) {
+            if (inputElem[i].checked == true) {
+				OptSelected = true;
+                
+			}   
+       }
+       
+       if(OptSelected == false){
+       alert('Checklist needs to be selected before clicking Save');    
+       } else{   
+       callSave();
+       }    
+   }
+    
+    function validateSaveComplete(){
+    
+     var OptSelected = false;
+       var inputElem = document.getElementsByTagName("input");
+      
+       for (var i=0; i<inputElem.length; i++) {
+            if (inputElem[i].checked == true) {
+				OptSelected = true;
+                
+			}   
+       }
+       
+       if(OptSelected == false){
+       alert('Checklist needs to be selected before clicking Save and Complete');    
+       } else{   
+       callSaveComplete();
+       }    
+   }
+    
+</script>
+</apex:page>

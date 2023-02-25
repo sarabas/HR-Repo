@@ -1,0 +1,297 @@
+<apex:page standardController="Contact" extensions="TrainingController" showHeader="false" sidebar="false" id="page">
+  
+    <head>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+        <style type="text/css">
+            
+            .myFormStyle {
+            <!--     background-color: #9c80c2; -->
+            <!--background-color: #4a3ea3;-->
+            background-color:#fff;
+            }
+            .image {
+            <!--     background-color: #9c80c2; -->
+            background-color : #00000;
+            margin-top:500px;
+            }
+            .bPageBlock .pbTitle {
+            width: 100%;    
+            text-align: center;
+            font-size: 100%;
+            border:0px;
+            }
+            .pbheader h3 {
+            white-space: pre;
+            }
+            .background_img{
+            width:100%;
+            }
+            .headerRow{background-color:#4c50a2;
+            line-height: 25px;
+            color:white;
+            text-align: center;
+            border:0;}
+            
+            .hideTableHeader {
+            display: none;
+            }
+            
+            
+            .submit_button {
+            background-color: rgb(76, 80, 162) ! important;
+            background-image: none !important;
+            initial.fre-btn, .fre-btn-disable, .fre-payment-list>li>.btn: ;
+            background-origin: padding-box;
+            background-position-x: 0% !important;
+            background-position-y: 0% !important;
+            background-repeat-x: ;
+            background-repeat-y: ;
+            background-size: auto !important;
+            border-bottom-color: rgb(76, 80, 162) !important;
+            border-bottom-left-radius: 20px !important;
+            border-bottom-right-radius: 20px !important;
+            border-bottom-style: solid !important;
+            border-bottom-width: 2px !important;
+            border-image-outset: 0px !important;
+            border-image-repeat: stretch !important;
+            border-image-slice: 100%;
+            border-image-source: none;
+            border-image-width: 1;
+            border-left-color: rgb(76, 80, 162);
+            border-left-style: solid;
+            border-left-width: 2px;
+            border-right-color: rgb(76, 80, 162);
+            border-right-style: solid;
+            border-right-width: 2px;
+            border-top-color: rgb(76, 80, 162);
+            border-top-left-radius: 20px!important;
+            border-top-right-radius: 20px !important;
+            border-top-style: solid;
+            border-top-width: 2px;
+            /* bottom: 75px; */
+            box-shadow: none;
+            box-sizing: border-box;
+            color: rgb(255, 255, 255) !important;
+            cursor: pointer;
+            display: block;
+            font-family: Roboto;
+            font-size: 14px;
+            font-weight: 700;
+            height: 48px;
+            /* left: 896.325px; */
+            line-height: 44px;
+            margin-bottom: 0px;
+            margin-left: -95px;
+            margin-right: 0px;
+            margin-top: 10px;
+            min-width: 190px;
+            outline-color: rgb(255, 255, 255);
+            outline-style: none;
+            outline-width: 0px;
+            padding-bottom: 0px;
+            padding-left: 22px;
+            padding-right: 22px;
+            padding-top: 0px;
+            /* position: absolute; */
+            text-align: center;
+            text-decoration-color: rgb(255, 255, 255);
+            text-decoration-line: none;
+            text-decoration-style: solid;
+            text-size-adjust: 100%;
+            transition-delay: 0s;
+            transition-duration: 0.2s;
+            transition-property: all;
+            transition-timing-function: ease-out;
+            width: 190px;
+            z-index: 9;
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+            }
+            .btnGo, .btnImportant, .btnSharing, .btnDisabled, .btn, .bEditBlock .btnGo, .bEditBlock .btnImportant, .bEditBlock .btnSharing, .bEditBlock .btnDisabled, .bEditBlock .btn, .btnCustomAction, .btnOverriddenAction {
+            margin: 0 2px;
+            }
+            
+            .par {
+            font-size: 18px;
+            text-indent: -4em;
+            margin-left: 4em;
+            }
+            .fre-site-logo {
+            display: inline-block;
+            padding: 10px 0;
+            margin-right: 42px;
+            line-height: 40px;
+            vertical-align: middle;
+            
+            }
+            
+            .fre-site-logo > a {
+            a {: unset;
+            display: inline-block;
+            height: 60px;
+            };
+            display: inline-block;
+            height: 60px;
+            }
+            
+            .fre-site-logo>a img {
+            max-height: 100%;
+            max-width: 100%;
+            }
+            .title-text{
+            font: 600 38px/42px 'Raleway',sans-serif;
+            position: relative;
+            padding: 0 0 12px !important;
+            margin: 0 0 20px !important;
+            text-align: center;
+            margin: 0;
+            font-size: 38px;
+            font-weight: 600;
+            color: #4c50a2;
+            line-height: 1.5em;
+            }
+            .title-text:after{
+            width: 56px;
+            height: 2px;
+            background-color: #4b4fa1;
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            content: '';
+            margin: 0 0 0 -28px;
+            }
+            p{
+            box-sizing:border-box;
+            color:rgb(44, 62, 80);
+            display:block;
+            font-size:16px;
+            font-weight:400;
+            line-height:24px;
+            margin-block-end:10px;
+            margin-block-start:0px;
+            margin-bottom:10px;
+            margin-inline-end:0px;
+            margin-inline-start:0px;
+            margin-left:0px;
+            margin-right:0px;
+            margin-top:0px;
+            outline-color:rgb(44, 62, 80);
+            outline-style:none;
+            outline-width:0px;
+            padding-bottom:0px;
+            padding-left:0px;
+            padding-right:0px;
+            padding-top:0px;
+            text-align:justify;
+            text-indent:0px;
+            text-size-adjust:100%;
+            -webkit-tap-highlight-color:rgba(0, 0, 0, 0);
+            }
+            body .pbBody table.list tr th, body .pbBody table.list tr td,body .bRelatedList .pbBody table.list, body .apexp .pbBody table.list{
+            border:0px;
+            background:transparent;
+            }
+            body .bPageBlock, body #bodyCell .bResource .secondaryPalette, body .secondaryPalette.bPageBlock, body .individualPalette .secondaryPalette.bPageBlock, body .bodyDiv .genericTable, body .genericPageBlockTable, body .bodyDiv .bSubBlock, body .bComponentBlock .bPageBlock, body .bMyDashboard .bPageBlock, body.rlHoverFrame .bPageBlock, body.subjectSelectionPopup div.choicesBox, body.lookupTab .secondaryPalette.bPageBlock, body.popupTab .secondaryPalette.bPageBlock, body.UserTagStatsPage .secondaryPalette.bPageBlock{
+            
+            background: #FFF ! important;
+            border: 0px;
+            width: 100%;
+            }
+            form{
+            width:100%
+            }
+            ul.mom_ul {
+            list-style-image: url(http://ppd2.momrelaunch.com/wp-content/uploads/2018/11/bullet-point.svg);
+            font-size: 16px;
+            color: #000 !important;
+            }
+            
+            ul.mom_ul li {
+            padding: 0 !important;
+            text-align: left !important;
+            color: #000;
+            line-height: 25px;
+            margin: 0 0 10px !important;
+            }
+            
+    .bPageBlock .pbBody .dataCol {
+        border:0px;
+            font-family: Arial,Helvetica,sans-serif;
+            font-size: 1rem;
+            font-weight: 400;
+    }
+    .bPageBlock .pbBody .labelCol {
+        border:0px;
+            font-family: Arial,Helvetica,sans-serif;
+            font-size: 1rem;
+            font-weight: 400;
+    }
+        </style>
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+     </head>  
+        
+     <div class="container">
+         <div class="row">
+         	<div class="col-md-12"><div class="fre-site-logo fre-image">
+             <a href="#">
+                 <img class=" ls-is-cached lazyloaded" alt="Mom Relaunch" src="https://www.momrelaunch.com/wp-content/uploads/2017/10/MR_logo-300x188-1.png" />                </a>
+          	</div>
+          </div>
+      </div>
+      </div> 
+         <div class="container-fluid">
+              <div class="row">                         
+                   <div class="background_img">
+                        <img class=" lazyloaded" src="https://cdn.shortpixel.ai/client/to_webp,q_glossy,ret_img/https://www.momrelaunch.com/wp-content/uploads/2019/11/home-banner.jpg" data-src="https://cdn.shortpixel.ai/client/q_glossy,ret_img/https://www.momrelaunch.com/wp-content/uploads/2019/01/about-img-1.png" Style="width: 100%;"/>
+                   </div>
+              </div>                                 
+          </div>                              
+      <div class="container">
+           <div class="row"> 
+               <div class="col-md-12"> 
+                   <br/> <br/>
+                   <div class="text-center"><h2 class="title-text text-center purple ">{!trainingForm} Application</h2>
+                   <br/> <br/>
+                   <apex:form id="form">
+                   <apex:pageBlock mode="maindetail" id="pb">
+                       
+                   <apex:pageBlockSection id="pbs">
+                       
+                                       <apex:inputField value="{!tr.First_Name__c}" label="First Name" />
+                                       <apex:inputField value="{!tr.Last_Name__c}" label="Last Name" />
+                                       <apex:inputField value="{!tr.email__c}" label="Email Address" required="true"/ >
+                                       <apex:inputField value="{!tr.Phone__c}" label="Phone Number"/>
+                                       
+                                       <apex:inputField value="{!tr.City__c}" label="City Where you live"/>
+                                       <apex:inputField value="{!tr.State__c}" label="State"/>
+                                       <apex:inputField value="{!tr.Zip_Code__c}" label="Zip Code"/>
+                                       <apex:inputField value="{!tr.Highest_Degree__c}" label="Highest Degree" required="true"/>
+                                       <apex:inputField value="{!tr.Race_and_Ethnicity__c}" label="Your Race/Ethnicity"/>
+                                       <apex:inputField value="{!tr.Age_Range__c}" label="Your Age"/>
+                                       <apex:inputField value="{!tr.Employement_Interested_in__c}" label="Please tell us what employment you are interested in?"/>
+                                       <apex:inputField value="{!tr.Availability_to_Start__c}" label="Please tell us your availability to start work"/>
+                                       <apex:inputField value="{!tr.Interested_in_volunteering_for_MR__c}" label="Would you be interested in Volunteering your time with Mom Relaunch?"/>
+                                       <apex:inputField value="{!tr.Interested_in_internship_with_MR__c}" label="Would you be interested in doing a Volunteer Internship with Mom Relaunch to build your skills?"/>
+                                       <apex:inputField value="{!tr.Available_in_person_for_Training__c}" label="Can you commit to be available in person for the Training?"/>                                     
+                                       <apex:inputField value="{!tr.Prior_IT_Work_Experience__c}" label="Do you have prior IT	 Experience?"/>									      
+                                       <apex:inputField value="{!tr.Computer_Skills__c}" label="What computer skills do you have?Please list each one."/>
+                                       <apex:inputField value="{!tr.List_Each_Prior_Work_Experience__c}" label="Prior Work Experience, Please list each one"/>
+                                       <apex:inputField value="{!tr.Professional_Skills__c}" label="Please list any types of Professional skills training you have had"/>							   
+                                       <apex:inputField value="{!tr.Career_goals__c}" label="Describe what your career goals are after taking the Training?"/>
+                                       <apex:inputField value="{!tr.why_would_you_want_to_take_this_Training__c}" label="Please tell us why would you want to take the Training?"/>                                                                                  
+                                       </apex:pageBlockSection>
+            <center>           
+                <apex:outputlabel id="opwel"/>
+                <apex:commandButton styleClass="submit_button" action="{!saveRecord}" onclick="return confirm('Please Confirm Your Submission...')" value="Submit"/>
+                      
+            </center>
+                                       
+</apex:pageBlock>
+   </apex:form>                                    
+                   </div>
+               </div>
+            </div>  
+       </div>
+                                           
+</apex:page>

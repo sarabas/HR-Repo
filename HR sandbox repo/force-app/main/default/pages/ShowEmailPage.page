@@ -1,0 +1,32 @@
+<apex:page showHeader="false" standardStylesheets="false">
+     <script>
+       function myFunction() {
+           var person = prompt("Copy this Email", "{!$Label.ETCEmailId}");
+       }
+    </script>
+    <style>
+       .button {
+           background-color: #FF9900; /* Orange */
+           border: none;
+           color: white;
+           padding: 5px 10px;
+           border-radius: 40px;
+           text-align: center;
+           text-decoration: none;
+           display: inline-block;
+           font-family: Verdana;
+           font-size: 15px;
+           font-weight: bold;
+           margin: 4px 2px;
+           cursor: pointer;
+           -webkit-transition-duration: 0.4s; /* Safari */
+           transition-duration: 0.4s;
+       }
+       .button1:hover {
+           box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+       }
+   </style>
+       <center>
+           <button onclick="myFunction()" class="button button1">Show Email</button>
+       </center>
+</apex:page>

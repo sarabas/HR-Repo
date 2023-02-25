@@ -1,0 +1,38 @@
+<apex:page standardController="AVTRRT__Placement__c" extensions="StartProjectController">
+ <apex:slds />
+ <apex:styleSheet value="{!$Resource.AVTRRT__LightningOnVf}"/>
+ <apex:include pageName="AVTRRT__UiThemeJs"/>
+ <apex:pageMessages />
+  <div class="slds-page-header slds-m-bottom_small">
+        <div class="slds-media">
+            <div class="slds-media__figure">
+              
+            </div>
+            <div class="slds-media__body">
+                <h1 class="slds-page-header__title slds-truncate slds-align-middle">
+                    Start Project
+                </h1>
+                <span id="subtile" class="slds-text-body_small slds-line-height_reset">
+                    {!AVTRRT__Placement__c.Name}
+                </span>
+           </div>
+        </div>
+    </div>
+ <apex:form >
+  <div class="slds-card slds-p-around--large">
+   &nbsp;
+   <apex:commandButton styleClass="slds-button slds-button_brand"
+     value="Yes"
+     action="{!StartProject}" />&nbsp;
+   <apex:commandLink styleClass="slds-button slds-button_neutral"
+     onclick="navigateToRecord ('{!$CurrentPage.parameters.Id}'); return false;">
+    Cancel
+   </apex:commandLink>
+  </div>
+ </apex:form>
+ <script>
+  function navigateToRecord(Id) {
+   ForceUI.navigate('/'+Id, window.top);
+  }
+ </script>
+</apex:page>

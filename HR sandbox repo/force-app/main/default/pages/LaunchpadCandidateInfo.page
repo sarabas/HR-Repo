@@ -1,0 +1,319 @@
+<apex:page standardController="TMS__Project__c" extensions="RequestedProjects" tabstyle="TMS__Project__c"   showHeader="false" sidebar="false">
+<head>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+  
+ 
+
+<style type="text/css">
+.rich-tab-header {
+    font-size: 15px;
+    padding: 15px;
+    cursor: pointer;
+    
+}
+.table-responsive{
+min-height:800px;
+}
+.rich-tab-active.activeTab {background: #4C50A2;color: #FFF;}
+
+    
+        .myFormStyle {
+        <!--     background-color: #9c80c2; -->
+        <!--background-color: #4a3ea3;-->
+         background-color:#fff;
+        }
+        .headerRow, th {
+    background-color: #4c50a2;
+    line-height: 25px;
+    color: white;
+    text-align: center;
+    
+}
+    .table thead th{
+width : 18%;
+}
+.table thead th:nth-child(1) {
+    width: 13% ! important;
+}
+.table thead th:nth-child(2) {
+    width: 15% ! important;
+}
+.table thead th:nth-child(3) {
+    width: 11% ! important;
+}
+.table thead th:nth-child(4) {
+    width: 10% ! important;
+    }
+    
+ .table {
+     table-layout: fixed;
+    word-wrap: break-word;
+    <!--white-space: pre-wrap;--->
+ }
+       /* .image {
+        <!--     background-color: #9c80c2; -->
+        background-color : #00000;
+         margin-top:500px;
+        }*/
+        .bPageBlock .pbTitle {
+        width: 100%;    
+        text-align: center;
+        font-size: 100%;
+        }
+        /*
+         .pbheader h3 {
+        white-space: pre;
+        }*/
+        .background_img{
+        width:100%;
+        }*/
+    .headerRow{background-color:#4c50a2;
+line-height: 25px;
+color:white;
+    text-align: center;}
+             
+    /*    .hideTableHeader {
+            display: none;
+        }
+        
+    
+     .par {
+   font-size: 18px;
+  text-indent: -4em;
+  margin-left: 4em;
+}
+        .fre-site-logo {
+    display: inline-block;
+    padding: 10px 0;
+    margin-right: 42px;
+    line-height: 40px;
+    vertical-align: middle;
+   
+}
+
+.fre-site-logo > a {
+    a {: unset;
+    display: inline-block;
+    height: 60px;
+};
+    display: inline-block;
+    height: 60px;
+}
+
+.fre-site-logo>a img {
+    max-height: 100%;
+    max-width: 100%;
+}*/
+
+        
+    /*    .title-text{
+    font: 600 38px/42px 'Raleway',sans-serif;
+    position: relative;
+    padding: 0 0 12px !important;
+    margin: 0 0 20px !important;
+        text-align: center;
+    margin: 0;
+    font-size: 38px;
+    font-weight: 600;
+    color: #4c50a2;
+    line-height: 1.5em;
+} */
+
+/*.title-text:after{
+    width: 56px;
+    height: 2px;
+    background-color: #4b4fa1;
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    content: '';
+    margin: 0 0 0 -28px;
+    }*/
+
+    table td, table th {
+    padding: 0px ! important; 
+}
+    .rich-tabhdr-side-cell table tr td, .rich-tabpanel-content table tr td, .rich-tabpanel-content table tr th {
+    padding: 10px ! important; 
+}
+td.rich-tabpanel-content .table {
+    margin-top: 10px;
+    background: #FFF;
+}
+
+td.rich-tabpanel-content {
+    background: #FFF;
+    border: 0px; 
+}
+ form{
+ width:100%
+ }
+ 
+ p{
+    box-sizing:border-box;
+color:rgb(44, 62, 80);
+display:block;
+font-size:16px;
+font-weight:400;
+line-height:24px;
+margin-block-end:10px;
+margin-block-start:0px;
+margin-bottom:10px;
+margin-inline-end:0px;
+margin-inline-start:0px;
+margin-left:0px;
+margin-right:0px;
+margin-top:0px;
+outline-color:rgb(44, 62, 80);
+outline-style:none;
+outline-width:0px;
+padding-bottom:0px;
+padding-left:0px;
+padding-right:0px;
+padding-top:0px;
+text-align:justify;
+text-indent:0px;
+text-size-adjust:100%;
+-webkit-tap-highlight-color:rgba(0, 0, 0, 0);
+    }
+    body .pbBody table.list tr th, body .pbBody table.list tr td,body .bRelatedList .pbBody table.list, body .apexp .pbBody table.list{
+    border:0;
+    background:transparent;
+    }
+    body .bPageBlock, body #bodyCell .bResource .secondaryPalette, body .secondaryPalette.bPageBlock, body .individualPalette .secondaryPalette.bPageBlock, body .bodyDiv .genericTable, body .genericPageBlockTable, body .bodyDiv .bSubBlock, body .bComponentBlock .bPageBlock, body .bMyDashboard .bPageBlock, body.rlHoverFrame .bPageBlock, body.subjectSelectionPopup div.choicesBox, body.lookupTab .secondaryPalette.bPageBlock, body.popupTab .secondaryPalette.bPageBlock, body.UserTagStatsPage .secondaryPalette.bPageBlock{
+    
+     background: #FFF ! important;
+    border: none;
+    width: 100%;
+ }
+table td, table th {
+    padding: 5px 5px;
+}
+ form{
+ width:100%
+ } 
+ /*   
+.popup-content p{
+ margin:10px;
+ }
+.popup-content h2{
+position : relative;
+left:35%;
+}*/
+       /* .custPopup{
+            background-color: white;
+            border-width: 2px;
+            border-style: solid;
+            z-index: 9999;
+            left: 50%;
+            padding:10px;
+            position: absolute;
+            /* These are the 3 css properties you will need to change so the popup 
+            displays in the center of the screen. First set the width. Then set 
+            margin-left to negative half of what the width is. You can add 
+            the height property for a fixed size pop up if you want.*/
+           /* width: 800px;
+            margin-left: -400px;
+            top:100px;
+        }*/
+      /*  .custPopup .btn {
+       position: absolute;
+    right: 0;
+    top: 0;
+    background: #FFF;
+    border: none;
+    font-size: 20px;
+    color: rgb(76, 80, 162);
+}*/
+       /* .popupBackground{
+            background-color:black;
+            opacity: 0.20;
+            filter: alpha(opacity = 20);
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 9998;
+        }*/
+        
+ .rich-tabhdr-side-cell {border-top:none;} 
+ .rich-tabhdr-side-border {background-image:none;} 
+  
+
+.activeTab{
+background-color: darkgrey;
+background-image:none;
+border: none;
+}
+
+.inactiveTab {
+background-color: lightgrey;
+background-image:none;
+border: none;
+}
+    
+</style> 
+
+</head>
+
+
+  
+<apex:pageBlock title="">     
+<apex:form >
+  
+ <div class="table-responsive">
+ <apex:tabPanel switchType="client" selectedTab="internal" id="ProjectTabPanel" tabClass="activeTab" inactiveTabClass="inactiveTab" contentStyle="font-size: 15px;" headerSpacing="0px">
+         <apex:tab label="Internal Projects" name="internal" id="internal">
+          
+         <apex:dataTable value="{!CandidateInternalProjects}" styleClass="table table-striped" var="i" border="1" rows="2" rowClasses="odd,even"> 
+            <apex:column headerValue="Candidate Name" value="{!i.RequesterContact__r.Name}" />
+            <apex:column headerValue="Candidate's Skills" value="{!i.RequesterContact__r.AVTRRT__AutoPopulate_Skillset__c}"/>
+            <apex:column headerValue="Projects Requested" value="{!i.Project__r.Name}"/>
+            
+            <apex:column headerValue="Action">
+                <apex:commandLink value="Approve" action="{!sendApproveEmail}" styleClass="btn" style="color: #FFF;text-decoration:none;background: #4c50a2;padding: 5px;text-align: center;">   
+                     <apex:param name="ProjectId" value="{!i.Project__r.Id}" assignTo="{!selPrjId}"/>
+                     <apex:param name="CandidateId" value="{!i.RequesterContact__r.Id}" assignTo="{!selCandidateId}"/>
+                    </apex:commandLink>   
+                    
+                <apex:commandLink value="Reject" action="{!sendRejectEmail}" styleClass="btn" style="color: #FFF;text-decoration:none;background: #4c50a2;padding: 5px;text-align: center;" >
+					<apex:param name="ProjectId" value="{!i.Project__r.Id}" assignTo="{!selPrjId}"/>
+                     <apex:param name="CandidateId" value="{!i.RequesterContact__r.Id}" assignTo="{!selCandidateId}"/>		
+                </apex:commandLink> 
+          </apex:column>
+                     
+   </apex:dataTable>   </apex:tab>
+    
+    
+     
+   <apex:tab label="Client Projects" name="client" id="client">
+       <apex:dataTable value="{!CandidateOpenProjects}" styleClass="table table-striped" var="c" border="1" rowClasses="odd,even"> 
+           <apex:column style="white-space:pre-wrap;" headerValue="Candidate Name" value="{!c.RequesterContact__r.Name}" />
+           <apex:column headerValue="Candidate's Skills" value="{!c.RequesterContact__r.AVTRRT__AutoPopulate_Skillset__c}"/>
+           <apex:column headerValue="Projects Requested" value="{!c.Project__r.Name}"/>
+          
+           <apex:column headerValue="Action">
+             
+                <apex:commandLink value="Approve" action="{!sendApproveEmail}" styleClass="btn" style="color: #FFF;text-decoration:none;background: #4c50a2;padding: 5px;text-align: center;" reRender="myPanel">   
+                     <apex:param name="ProjectId" value="{!c.Project__r.Id}" assignTo="{!selPrjId}"/>
+                     <apex:param name="CandidateId" value="{!c.RequesterContact__r.Id}" assignTo="{!selCandidateId}"/>
+                </apex:commandLink>   
+                    
+                <apex:commandLink value="Reject" action="{!sendRejectEmail}" styleClass="btn" style="color: #FFF;text-decoration:none;background: #4c50a2;padding: 5px;text-align: center;" >
+					<apex:param name="ProjectId" value="{!c.Project__r.Id}" assignTo="{!selPrjId}"/>
+                     <apex:param name="CandidateId" value="{!c.RequesterContact__r.Id}" assignTo="{!selCandidateId}"/>		
+                </apex:commandLink> 
+          </apex:column>
+                     
+
+         
+       </apex:dataTable> </apex:tab>
+   
+    </apex:tabPanel>
+    </div>
+    
+    
+</apex:form>
+</apex:pageBlock>
+</apex:page>

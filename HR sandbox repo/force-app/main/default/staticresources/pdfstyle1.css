@@ -1,0 +1,21 @@
+body {
+	font-family: Cambria,Georgia,serif;
+	font-size: 14px;
+}
+@page {
+	size: letter;/*letter orientation*/
+	/*page numbers in the bottom center of each page in the pdf document*/
+	@bottom-right {
+		content: "Page " counter(page) " of " counter(pages);
+		font-family: Cambria,Georgia,serif;
+		font-size: 15px;
+	}
+	@bottom-left {
+		content: element(footer);
+    }
+}
+div.footer {
+		display: block;
+		padding: 10px;
+		position: running(footer);
+	}

@@ -1,0 +1,311 @@
+<apex:page standardController="AVAB__SO_Document__c"
+  showHeader="false"
+  renderAs="pdf"
+  standardStylesheets="false"
+  title="{!AVAB__SO_Document__c.Name}"
+  applyBodyTag="false"
+  applyHtmlTag="false"
+  extensions="TemplateGeneratorExtensionCustom"
+>
+  <head>
+    <style>
+      .table-bordered {
+        border: 1px solid #000;
+        border-collapse: collapse;
+        font-size: 14px;
+      }
+      thead > tr > th {
+        vertical-align: bottom;
+        border: 1px solid #000;
+        border-spacing: 0;
+        border-collapse: collapse;
+        background: #b0c4de;
+        color: #000000;
+      }
+      td {
+        vertical-align: bottom;
+        border: 1px solid #000;
+        border-spacing: 0;
+        border-collapse: collapse;
+        text-align: right;
+      }
+      .header > td {
+        font-weight: bold;
+        background: #c4c4c4;
+      }
+
+      .echoArea > td {
+        padding: 10px;
+      }
+      @page {
+        size: 8.89in 11.69in; /* A4 width and height */
+        margin-bottom: 3cm;
+      }
+      .bankdetails td {
+        text-align: left;
+      }
+      .zelleDetails td {
+        text-align: left;
+      }
+    </style>
+  </head>
+  <apex:stylesheet value="{!$Resource.pdfstyle1}" />
+  <apex:image url="{!$Resource.MRLogo}" height="120" width="220" />
+  <p style="margin-bottom: 30px; padding-top: 10px; margin-top: -10px"></p>
+
+  <div align="right" style="font-size: 18px">
+    <table
+      width="40%"
+      class="table-bordered"
+      align="right"
+      style="bottom-top: 20px"
+    >
+      <thead>
+        <tr>
+          <th>DATE</th>
+          <th style="width: 35%">Doc Type Name</th>
+          <th>Invoice #</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <apex:outputText value="{0,date,short}">
+              <apex:param value="{!AVAB__SO_Document__c.AVAB__Date__c}" />
+            </apex:outputText>
+          </td>
+          <td style="text-align: left">
+            {!AVAB__SO_Document__c.AVAB__Document_Type_Name__c}
+          </td>
+          <td>{!AVAB__SO_Document__c.Name}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <br /><br /><br /><br /><br />
+  <div width="100%" align="left" style="float: left">
+    <apex:outputField value="{!AVAB__SO_Document__c.AVAB__Account__r.Name}" />
+    <br />
+    <apex:outputField value="{!AVAB__SO_Document__c.AVAB__Contact__r.Name}"
+      rendered="{!IF(AVAB__SO_Document__c.AVAB__Contact__r.Name !=NULL,true,false)}"
+    /><br />
+    <apex:outputField value="{!AVAB__SO_Document__c.AVAB__Account__r.BillingStreet}"
+      rendered="{!IF(AVAB__SO_Document__c.AVAB__Account__r.BillingStreet !=NULL,true,false)}"
+    />&nbsp;<!--<apex:outputField value="{!AVAB__SO_Document__c.AVAB__Billing_Address_2__c}" rendered="{!IF(AVAB__SO_Document__c.AVAB__Billing_Address_2__c !=NULL,true,false)}"/>--><br />
+    <apex:outputField value="{!AVAB__SO_Document__c.AVAB__Account__r.BillingCity}"
+      rendered="{!IF(AVAB__SO_Document__c.AVAB__Account__r.BillingCity !=NULL,true,false)}"
+    />&nbsp;<apex:outputField value="{!AVAB__SO_Document__c.AVAB__Account__r.BillingState}"
+      rendered="{!IF(AVAB__SO_Document__c.AVAB__Account__r.BillingState !=NULL,true,false)}"
+    /><br />
+    <apex:outputField value="{!AVAB__SO_Document__c.AVAB__Account__r.BillingPostalCode}"
+      rendered="{!IF(AVAB__SO_Document__c.AVAB__Account__r.BillingPostalCode !=NULL,true,false)}"
+    />&nbsp;<apex:outputField value="{!AVAB__SO_Document__c.AVAB__Account__r.BillingCountry}"
+      rendered="{!IF(AVAB__SO_Document__c.AVAB__Account__r.BillingCountry !=NULL,true,false)}"
+    />
+  </div>
+
+  <table class="table-bordered" align="right" style="width: 60%">
+    <thead>
+      <tr>
+        <th style="width: 5%">PO #</th>
+        <th style="width: 15%">Due Date</th>
+        <th style="width: 25%">Contract Number</th>
+        <th style="width: 60%">Customer Message</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="vertial-align: middle; width: 15%">
+          {!AVAB__SO_Document__c.AVAB__PO_Number__c}
+        </td>
+        <td>
+          <apex:outputText value="{0,date,short}">
+            <apex:param value="{!AVAB__SO_Document__c.AVAB__Due_Date__c}" />
+          </apex:outputText>
+        </td>
+        <td>{!AVAB__SO_Document__c.AVAB__Contract_Number__c}</td>
+        <td style="text-align: left">
+          {!AVAB__SO_Document__c.AVAB__Internal_Note__c}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div style="clear: both"></div>
+  <br />
+  <table width="100%" class="table-bordered">
+    <thead>
+      <tr>
+        <th>Product Name</th>
+        <th>Product Description</th>
+        <th>Quantity</th>
+        <th>Sales Price</th>
+        <th>Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      <apex:repeat value="{!wrapperEmpList}" var="it">
+        <tr>
+          <td style="text-align: left">{!it.prodName}</td>
+          <td style="width: 50%; text-align: left">
+            {!it.name} - {!it.taskName} hours for&nbsp;
+            <apex:outputtext value="{0, date, short}">
+              <apex:param value="{!AVAB__SO_Document__c.ABTS__Start_Date__c}"
+              ></apex:param>
+            </apex:outputtext>
+            to&nbsp;
+            <apex:outputtext value="{0, date, short}">
+              <apex:param value="{!AVAB__SO_Document__c.ABTS__End_Date__c}"
+              ></apex:param>
+            </apex:outputtext>
+          </td>
+          <td>{!it.quantity}</td>
+          <td>
+            <apex:outputText value="${0, number, ###,###,###,##0.00}">
+              <apex:param value="{!it.salesPrice}" />
+            </apex:outputText>
+          </td>
+          <td>
+            <apex:outputText value="${0, number, ###,###,###,##0.00}">
+              <apex:param value="{!it.total}" />
+            </apex:outputText>
+          </td>
+        </tr>
+      </apex:repeat>
+      <tr>
+        <td colspan="3" style="border: 0">&nbsp;</td>
+        <td style="border: 1px solid black; text-align: left">
+          <apex:outputText value="AMOUNT" />
+        </td>
+        <td style="border: 1px solid black; font-weight: bold">
+          <apex:outputField value="{!AVAB__SO_Document__c.AVAB__Amount__c}" />
+        </td>
+      </tr>
+      <tr>
+        <td colspan="3" style="border: 0">&nbsp;</td>
+        <td style="border: 0; text-align: left; border-left: 1px solid black">
+          <apex:outputText value="SALES TAX" />
+          (<apex:outputField value="{!AVAB__SO_Document__c.AVAB__Tax_Rate__c}"
+          />)
+        </td>
+        <td style="">
+          <apex:outputText value="${0, number, ###,###,###,##0.00}">
+            <apex:param value="{!salesTax}" />
+          </apex:outputText>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="3" style="border: 0">&nbsp;</td>
+        <td
+          style="
+            border: 0;
+            font-weight: bold;
+            border-top: 1px solid black;
+            border-bottom: 1px solid black;
+            border-right: 1px solid black;
+            border-left: 1px solid black;
+            background: #b0c4de;
+            text-align: left;
+          "
+        >
+          <apex:outputText value="TOTAL DUE " />
+        </td>
+        <td
+          style="
+            border: 0;
+            font-weight: bold;
+            border-top: 1px solid black;
+            border-bottom: 1px solid black;
+            border-right: 1px solid black;
+            border-left: 1px solid black;
+            background: #b0c4de;
+          "
+        >
+          <apex:outputField style="border: 1px solid red"
+            value="{!AVAB__SO_Document__c.AVAB__Balance__c}"
+          />
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div style="font-size: 14px; float: left">
+    <b>Thank you for your business!</b>
+  </div>
+  <br />
+  <div style="width: 100%; overflow: hidden">
+    <div
+      style="
+        width: 30%;
+        float: left;
+        padding: 10px;
+        margin-bottom: 10px;
+        padding-left: 0;
+      "
+    >
+      <p>
+        <apex:outputText >To Remit via check,</apex:outputText><br /><br />
+        <apex:outputText >Mom Relaunch LLC</apex:outputText><br />
+        <apex:outputText >5949 Via Del Cielo</apex:outputText><br />
+        <apex:outputText >Pleasanton, CA 94566 US </apex:outputText><br />
+        <apex:outputText >(615) 371-6191</apex:outputText><br />
+        <apex:outputText >accounting@momrelaunch.com</apex:outputText>
+      </p>
+    </div>
+    <div style="margin-top: 12px; width: 50%; float: right">
+      <table style="float: right" class="bankdetails">
+        <tr>
+          <td style="border: 0">
+            <apex:outputText >To Remit via bank,<br /><br /></apex:outputText>
+          </td>
+        </tr>
+        <tr>
+          <td style="border: 0"><b>Beneficiary:</b></td>
+          <td style="border: 0">Mom Relaunch LLC</td>
+        </tr>
+        <tr>
+          <td style="border: 0; width: 50%">
+            <b>Beneficiary Account Number:</b>
+          </td>
+          <td style="border: 0; vertical-align: top">325061375909</td>
+        </tr>
+        <tr>
+          <td style="border: 0"><b>Bank Name:</b></td>
+          <td style="border: 0">Bank of America, N.A.</td>
+        </tr>
+        <tr>
+          <td style="border: 0"><b>ABA Number:</b></td>
+          <td style="border: 0">026009593</td>
+        </tr>
+        <tr>
+          <td style="border: 0"><b>Swift Code:</b></td>
+          <td style="border: 0">BOFAUS3N</td>
+        </tr>
+        <tr>
+          <td style="border: 0; vertical-align: top"><b>Bank Address:</b></td>
+          <td style="border: 0">
+            CA4-176-01-01, 6500, Stoneridge Dr, Pleasanton, CA 94588
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <div style="margin-top: 2px; width: 50%; float: left">
+      <table style=" = float:left: " class="zelleDetails">
+        <tr>
+          <td style="border: 0">
+            <apex:outputText ><b>To Remit via Zelle,</b><br /><br
+            /></apex:outputText>
+          </td>
+        </tr>
+        
+        <tr>
+          <td style="border: 0"><b>Zelle ID:</b></td>
+          <td style="border: 0">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;accounting@momrelaunch.com
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</apex:page>

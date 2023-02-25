@@ -1,0 +1,5 @@
+<apex:page StandardController="Contact">
+     <flow:interview name="RTM_Information" finishLocation="/{!Contact.Id}">
+     <apex:param name="ContactId" value="{!Contact.Id}"/>
+ </flow:interview>
+</apex:page>

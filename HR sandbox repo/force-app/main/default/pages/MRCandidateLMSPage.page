@@ -1,0 +1,528 @@
+<apex:page standardController="Candidate_Learning_Path__c" extensions="MRCandidateLMSPageController" tabstyle="Candidate_Learning_Path__c"   showHeader="false" sidebar="false" id="lpPage" docType="html-5.0" >
+<head>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+  
+ 
+<style type="text/css">
+.rich-tab-header {
+    font-size: 15px;
+    padding: 15px;
+    cursor: pointer;
+    width: 200px; 
+    
+}
+    th{
+    font-size: 14px;
+    border : 1px solid #CDCDCD;
+} 
+.table td, .table th, .table thead tr th, body .bPageBlock .detailList tr th{
+border : 1px solid #8f8a8a! important;
+}   
+
+.table-responsive{
+<!--min-height:800px;-->
+    min-height: auto;
+    
+    
+}
+  .table-learning{
+min-height:200px;
+    border: 0px;
+    
+}  
+    body {
+        font-family: Arial,Helvetica,sans-serif;
+        color: #222;
+        font-size: 14px;
+    }
+.rich-tab-active.activeTab {background: #4C50A2;color: #FFF;}
+
+    
+        .myFormStyle {
+        <!--     background-color: #9c80c2; -->
+        <!--background-color: #4a3ea3;-->
+         background-color:#fff;
+        }
+        .headerRow, th {
+    background-color: #4c50a2;
+    line-height: 25px;
+    color: white;
+    text-align: center;
+    
+}
+
+    .pbSubheader.brandTertiaryBgr.tertiaryPalette {
+      background-color: #36459E ;
+    color: purple;
+    margin-left:0px;
+    width: 100%;
+    
+
+}
+.table thead th{
+width : 18%;
+    
+}
+.table thead th:nth-child(1) {
+    width: 13% ! important;
+}
+.table thead th:nth-child(2) {
+    width: 15% ! important;
+}
+.table thead th:nth-child(3) {
+    width: 11% ! important;
+}
+.table thead th:nth-child(4) {
+    width: 10% ! important;
+}
+ .table {
+     table-layout: absolute;
+    word-wrap: break-word;
+    padding-left:0px;
+    
+    
+    <!--white-space: pre-wrap;--->
+ }
+        .image {
+        <!--     background-color: #9c80c2; -->
+        background-color : #00000;
+         margin-top:500px;
+        }
+        .bPageBlock .pbTitle {
+        width: 100%;    
+        text-align: center;
+        color: #4c50a2;
+        font-weight: 600;
+        }
+
+         .pbheader h3 {
+        white-space: pre;
+        position: left;
+        color: #4c50a2;
+        font-weight: 600;
+        }
+        .background_img{
+        width:100%;
+        }
+.headerRow{background-color:#4c50a2;
+line-height: 25px;
+color:white;
+text-align: center;}
+             
+        .hideTableHeader {
+            display: none;
+        }
+        
+    
+     .par {
+   font-size: 18px;
+  text-indent: -4em;
+  margin-left: 4em;
+}
+        .fre-site-logo {
+    display: inline-block;
+    padding: 10px 0;
+    margin-right: 42px;
+    line-height: 40px;
+    vertical-align: middle;
+   
+}
+
+.fre-site-logo > a {
+    a {: unset;
+    display: inline-block;
+    height: 60px;
+};
+    display: inline-block;
+    height: 60px;
+}
+
+.fre-site-logo>a img {
+    max-height: 100%;
+    max-width: 100%;
+}
+
+        
+        .title-text{
+    font: 600 38px/42px 'Raleway',sans-serif;
+    position: left;
+    padding: 0 0 12px !important;
+    margin: 0 0 20px !important;
+        text-align: center;
+    margin: 0;
+    font-size: 20px;
+    font-weight: 600;
+    color: #4c50a2;
+}
+        .title-textFeedback{
+    font: 600 38px/42px 'Raleway',sans-serif;
+    position: left;
+        text-align: center;
+    font-size: 20px;
+    top: 100%;color: #4c50a2;
+}
+
+.title-text:after{
+    width: 56px;
+    height: 2px;
+    background-color: #4b4fa1;
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    content: '';
+    margin: 0 0 0 -28px;
+    }
+
+table td, table th {
+    padding: 0px ! important;
+    padding-left: 5px;
+}
+    bEditBlock .pbHeader>table, .apexp .bPageBlock.apexDefaultPageBlock .pbHeader>table, #ep.bLayoutBlock .pbHeader>table {
+    border-bottom: 0px solid #dbdbdb;
+}
+    .apexp .bPageBlock.apexDefaultPageBlock .pbBody {
+    margin:0px;
+    }
+  .rich-tab-bottom-line {
+        border-bottom-color: #C0C0C0;
+        border-bottom-style: solid;
+        border-bottom-width: 1px;
+    	margin-left: 10px ! important;
+    }
+
+    .rich-tabpanel-content table tr td, .rich-tabhdr-side-cell table tr td,.rich-tabpanel-content table tr th {
+    padding: 5px ! important;
+}
+td.rich-tabpanel-content .table {
+    margin-top: 13px;
+    background: #FFF;
+      
+}
+
+td.rich-tabpanel-content {
+    background: #FFF;
+    border: 0px;
+  
+}
+ form{
+ width:100%
+ }
+    
+ 
+ p{
+    box-sizing:border-box;
+color:rgb(44, 62, 80);
+display:block;
+font-size:16px;
+font-weight:400;
+line-height:24px;
+margin-block-end:10px;
+margin-block-start:0px;
+margin-bottom:10px;
+margin-inline-end:0px;
+margin-inline-start:0px;
+margin-left:0px;
+margin-right:0px;
+margin-top:0px;
+outline-color:rgb(44, 62, 80);
+outline-style:none;
+outline-width:0px;
+padding-bottom:0px;
+padding-left:0px;
+padding-right:0px;
+padding-top:0px;
+text-align:justify;
+text-indent:0px;
+text-size-adjust:100%;
+-webkit-tap-highlight-color:rgba(0, 0, 0, 0);
+    }
+    body .pbBody table.list tr th, body .pbBody table.list tr td,body .bRelatedList .pbBody table.list, body .apexp .pbBody table.list{
+    background:transparent;
+    padding-left:0px;
+    align:left;
+    border-color:#000;
+    margin-left:0px;
+    width: 100%
+    }
+    
+    
+    body .bPageBlock, body #bodyCell .bResource .secondaryPalette, body .secondaryPalette.bPageBlock, body .individualPalette .secondaryPalette.bPageBlock, body .bodyDiv .genericTable, body .genericPageBlockTable, body .bodyDiv .bSubBlock, body .bComponentBlock .bPageBlock, body .bMyDashboard .bPageBlock, body.rlHoverFrame .bPageBlock, body.subjectSelectionPopup div.choicesBox, body.lookupTab .secondaryPalette.bPageBlock, body.popupTab .secondaryPalette.bPageBlock, body.UserTagStatsPage .secondaryPalette.bPageBlock{
+   
+     background: #FFF ! important;
+    border: 0;
+    width: 100%;
+    padding-left:0px;
+    margin-left:0px;
+   }
+   <!-- Remove border for the questions in Feedback page and achievement page -->
+    #lpPage\:myForm\:myLPPage\:feedbackBlock\:feedbackBlocksection table tbody tr td,
+    #lpPage\:myForm\:myLPPage\:achievementBlock\:achievementBlocksection table tbody tr td{
+        border: none;
+    }
+
+    body .bPageBlock .detailList tr td, body .bPageBlock .detailList tr th, body table.list tr td, body table.list tr th, body .hoverDetail .bPageBlock .detailList tr td, body .hoverDetail .bPageBlock .detailList tr th {
+        border-color: #ececec;
+}
+}
+table td, table th {
+    padding: 5px 5px;
+}
+ form{
+ width:100%
+ } 
+    
+.popup-content p{
+ margin:10px;
+ }
+.popup-content h2{
+position : relative;
+left:35%;
+}
+        .custPopup{ background-color: white; border-width: 3px; border-style: solid; z-index: 9999; left: 50%; padding:11px; position: absolute; width: 600px; margin-left: -240px; top:400px; } 
+
+        .custPopup .btn {
+       position: bottom;
+    background-color: white;
+    border: none;
+    font-size: 15px;
+    color: rgb(76, 80, 162);
+}
+                          
+        .popupBackground{
+            background-color:black;
+            opacity: 0.20;
+            filter: alpha(opacity = 20);
+            position: absolute;
+            width: 100%;
+            height: 230%;
+            top: 0;
+            left: 0;
+            z-index: 9998;
+        }
+        
+ .rich-tabhdr-side-cell {border-top:none;} 
+ .rich-tabhdr-side-border {background-image:none;} 
+  
+
+.activeTab{
+background-color: darkgrey;
+background-image:none;
+border: none;
+}
+
+.inactiveTab {
+background-color: lightgrey;
+background-image:none;
+border: none;
+}
+ .radio-inline2 { padding-right: 10px !important; }   
+    .datePicker{
+        position: absolute;
+        width: 420px;
+        height:auto;
+        z-index:9999}
+</style> 
+</head>
+
+<div class="container"><div class="row">
+<div class="col-md-12"><div class="fre-site-logo fre-image">
+                <a href="#">
+                    <img class=" ls-is-cached lazyloaded" alt="Mom Relaunch" src="https://www.momrelaunch.com/wp-content/uploads/2017/10/MR_logo-300x188-1.png" />                </a>
+                    </div>
+                   </div>
+ </div>
+ </div>
+ <div class="container-fluid">
+<div class="row">
+    <div class="background_img">
+                    <img class=" lazyloaded" src="https://cdn.shortpixel.ai/client/to_webp,q_glossy,ret_img/https://www.momrelaunch.com/wp-content/uploads/2019/11/home-banner.jpg" data-src="https://cdn.shortpixel.ai/client/q_glossy,ret_img/https://www.momrelaunch.com/wp-content/uploads/2019/01/about-img-1.png" Style="width: 100%;"/>
+                   </div> </div>
+    
+</div>
+
+<div class="container"> 
+<div class="row">
+<div class="col-md-12">
+<div class="text-center"><h2 class="title-text text-center purple " text-align= "left" >Welcome {!candName}!!</h2></div>
+</div>
+    
+<apex:form id="myForm">
+<apex:pageBlock title="" id="myLPPage">     
+  <apex:actionFunction name="callSave" action="{!save}"/>
+ <div class="table-responsive">
+ <apex:tabPanel switchType="client" value="{!selectedTab}" id="CandidateTab" tabClass="activeTab" inactiveTabClass="inactiveTab" contentStyle="font-size: 14px;" headerSpacing="0px">
+     <apex:tab label="My Learning Path" name="mylearningPath" id="learningPathTab"> 
+      <apex:pageBlock id="myLPPage1"> 
+        <apex:dataTable value="{!CandidateLearningPath}" styleClass="table table-striped" var="p" border="1" rowClasses="odd,even"  id="CandidateLPTable"> 
+            <apex:column headerValue="Learning Path">
+               <apex:commandLink value="{!p.Learning_Path__r.Name}" styleClass="hyperlink" style="text-decoration:underline;" action="{!openResources}" reRender="resourcesSection"  >
+               <apex:param name="LP Name" value="{!p.Learning_Path__r.Name}" assignTo="{!selLPName}"/> 
+           </apex:commandLink>   
+           </apex:column>
+           <apex:column headerValue="Status"  style="text-align:center;" >
+           <apex:actionRegion >
+             <apex:inputField value="{!p.My_Training__c}" onchange="callsaveStatusAction();" />
+           </apex:actionRegion>
+           </apex:column>
+           <apex:column headerValue="Start Date" value="{!p.Start_Date__c}"  style="text-align:center;"/>
+           <apex:column headerValue="End Date" value="{!p.End_Date__c}" style="text-align:center;"/>
+           <apex:column headerValue="Feedback"  style="text-align:center;">
+               <apex:commandButton value="Feedback" action="{!showPopup}" rerender="feedbackBtn" styleClass="btn" style="color: #FFF;text-decoration:none;background: #4c50a2;padding: 5px;text-align: center;">
+                   <apex:param name="selected LP" value="{!p.Learning_Path__r.Name}" assignTo="{!selLPName}"/> 
+               </apex:commandButton>
+           </apex:column>
+      </apex:dataTable>
+
+              <apex:pageBlockSection title="{!resourcesName}" columns="1" id="resourcesSection"  collapsible="true" rendered="{!hideResources}">
+       <apex:dataTable value="{!Resources}" styleClass="table table-striped" var="p" cellspacing="0" cellpadding="0"  border="1" rowClasses="odd,even" style="margin-left:0px;"  columnsWidth="25%,25%,25%,25%" rendered="{!showResforLP}"> 
+           <apex:column headerValue="Resource Name" value="{!p.Resource__r.Name}" style="text-align:center;"/>
+           <apex:column headerValue="URL" styleClass="hyperlink"  style="text-decoration:underline;text-align:center;">
+               <apex:commandLink value="{!p.Resource__r.URL__c}" onclick="window.open('{!p.Resource__r.URL__c}')" styleClass="hyperlink"/>
+             </apex:column>      
+           <apex:column headerValue="Resource Type" value="{!p.Resource__r.Resource_Type__c}" style="text-align:center;"/>
+           <apex:column headerValue="Source"  value="{!p.Resource__r.Source__c}" style="text-align:center;"/>
+         </apex:dataTable>
+     </apex:pageBlockSection>
+   </apex:pageBlock>
+  </apex:tab>
+  <apex:tab label="Available Learning Paths" name="allLearningPath" id="allLearningPathTab"> 
+      <apex:pageBlock id="availableLP" >
+          <apex:dataTable value="{!AllLearningPaths}" styleClass="table table-striped"  var="p" border="1" rowClasses="odd,even">
+            <apex:param value="false" assignTo="{!hideResources}"/>
+            <apex:column headerValue="Learning Path Name" value="{!p.Name}" />
+            <apex:column headerValue="Description" value="{!p.Description__c}" style="white-space:pre-wrap;"/>
+<!--            <apex:column headerValue="Status" value="{!p.Status__c}"  style="text-align:center;"/>-->
+            <apex:column headerValue="Action"  style="text-align:center;">
+            <apex:commandButton id="requestBtn" value="Request" styleClass="btn" style="color: #FFF;text-decoration:none;background: #4c50a2;padding: 5px;text-align: center;"
+                           action="{!showThankYouPopup}" reRender="thankyouPopup">
+                                <apex:param name="reqLPName" value="{!p.Name}" assignTo="{!selLPName}"/>
+             </apex:commandButton>
+            </apex:column>
+        </apex:dataTable>
+         <apex:pageBlockSection columns="1" title="Requested Learning Paths" id="requestedLP">
+          <apex:dataTable value="{!requestedLearningPaths}" styleClass="table table-striped"  var="p" border="1" rowClasses="odd,even"  columnsWidth="20%,20%,20%,20%" id="requestedLPTable">
+            <apex:param value="false" assignTo="{!hideResources}"/>
+            <apex:column headerValue="Learning Path Name" value="{!p.Learning_Path__r.Name}" />
+            <apex:column headerValue="Status" value="{!p.Status__c}"  style="text-align:center;"/>
+              <apex:column headerValue="Requested On" value="{!p.Requested_On__c}"  style="text-align:center;"></apex:column>
+              <apex:column headerValue="Comments" value="{!p.Comments__c}"></apex:column>
+        </apex:dataTable>
+              </apex:pageBlockSection>
+          </apex:pageBlock>
+  </apex:tab>
+
+  <apex:tab label="Achievements" name="achievements" id="achievementsTab">
+     <apex:dataTable id="achievementsTable" value="{!Achievements}" styleClass="table table-striped" var="p"  border="1" rowClasses="odd,even" align="center" > 
+          <apex:param value="false" assignTo="{!hideResources}"/>
+         <apex:column headerValue="Achievement Name" value="{!p.Achievement_Name__c}"/>
+         <apex:column headerValue="Achievement Type" value="{!p.Achievement_Type__c}" style="text-align:center;"/>
+         <apex:column headerValue="Completion Date" value="{!p.Date__c}"  style="text-align:center;"/>
+         <apex:column headerValue="Description" value="{!p.Description__c}"  style="text-align:center;"/>
+     </apex:dataTable>
+      <apex:commandLink id="newAchievementBtn" value="Add New" styleClass="btn" style="color: #FFF;text-decoration:none;background: #4c50a2;
+                             padding: 5px;text-align: center;position:relative;left:50%;" action="{!showAchievementPopup}" reRender="addAchievementPopup"></apex:commandLink>
+
+  </apex:tab>
+ </apex:tabPanel>
+ </div>
+     <apex:pageBlock id="two"></apex:pageBlock>
+<apex:actionFunction name="callsaveStatus" action="{!saveStatus}"/>
+    <!-- Code for Popup Page-->
+        <apex:outputPanel id="feedbackBtn" > 
+            <apex:outputPanel styleClass="popupBackground" layout="block" rendered="{!displayPopUp}"/>
+            <apex:outputPanel styleClass="custPopup" layout="block" rendered="{!displayPopUp}" >
+   <apex:commandButton value="X" action="{!closePopup}" rerender="feedbackBtn" style="position:absolute;left:95%;right:5%;" />
+                   <div class="container">
+                   <div class="popup-content">
+                       <h2 class="title-text text-center purple " text-align= "center" >Feedback Form</h2></div>
+                       <apex:pageBlock id="feedbackBlock">
+                       <apex:pageBlockSection id="feedbackBlocksection" columns="1" collapsible="false" title="Please take a moment to provide your valuable feedback for '{!selLPName}'"><p/>
+                          <apex:outputLabel value="Please provide answers for all the questions" style="color: #ff0000;" rendered="{!displayError}"></apex:outputLabel>
+                           <apex:outputLabel value="Q1. Did this Learning Path meet your expectations?" >
+                            <apex:selectRadio layout="pageDirection" value="{!feedback.X1_Answer__c}" >
+                                    <apex:selectoptions value="{!FeedbackAnswerOptions}"></apex:selectoptions>
+                            </apex:selectRadio>
+                        </apex:outputLabel><p/>
+                                    <apex:outputLabel value="Q2. Did you receive clear instructions on how to navigate through the platform?">
+                            <apex:selectRadio layout="pageDirection" value="{!feedback.X2_Answer__c}" >
+                                    <apex:selectoptions value="{!FeedbackAnswerOptions}"></apex:selectoptions>
+                            </apex:selectRadio>
+                        </apex:outputLabel><p/>
+                       <apex:outputLabel value="Q3. Did this Learning Path help improve your knowledge/skills?" >
+                           <apex:selectRadio layout="pageDirection" value="{!feedback.X3_Answer__c}">
+                                    <apex:selectoptions value="{!FeedbackAnswerOptions}"></apex:selectoptions>
+                            </apex:selectRadio><p/>
+                        </apex:outputLabel>
+                    <apex:outputLabel value="Q4. Would you recommend this Learning Path to your colleagues/friends?" >
+                        <apex:selectRadio layout="pageDirection" value="{!feedback.X4_Answer__c}">
+                                    <apex:selectoptions value="{!FeedbackAnswerOptions}"></apex:selectoptions>
+                            </apex:selectRadio><p/>
+                        </apex:outputLabel>
+                        <apex:outputLabel value="Q5. Are you satisfied with your overall experience on this Learning Path?"  >
+                            <apex:selectRadio layout="pageDirection" value="{!feedback.X5_Answer__c}">
+                                    <apex:selectoptions value="{!FeedbackAnswerOptions}"></apex:selectoptions>
+                            </apex:selectRadio><p/>
+                       </apex:outputLabel><p/>
+                      <apex:outputLabel value="Additional Comments(If any)">
+                            <apex:inputText value="{!feedback.if_any__c}" id="selectAns6" size="60" maxlength="250"/>
+                        </apex:outputLabel>
+                       </apex:pageBlockSection>
+                       <apex:commandButton value="Save" action="{!saveFeedback}" rerender="feedbackBtn" styleClass="btn" style="color: #FFF;text-decoration:none;background: #4c50a2;padding: 6px;text-align: center;"/>
+                        <apex:commandButton value="Cancel" action="{!closePopup}" rerender="feedbackBtn" styleClass="btn" style="color: #FFF;text-decoration:none;background: #4c50a2;padding: 6px;text-align: center;"/> 
+                    </apex:pageBlock>
+                   </div>
+            </apex:outputPanel> 
+        </apex:outputPanel> 
+     <apex:outputPanel id="thankyouPopup">
+     <apex:outputPanel styleClass="popupBackground" layout="block" rendered="{!displayThankyouPopUp}"/>
+     <apex:outputPanel styleClass="custPopup" layout="block" rendered="{!displayThankyouPopUp}">
+                <div class="popup-content">
+                    <apex:commandButton value="X" action="{!closePopupThankYou}" rerender="requestedLPTable,thankyouPopup" style="position:absolute;left:95%;right:5%;"/>
+                    <h2 class="title-text text-center purple ">{!'Thank You!' }</h2>                                       
+                    <p style="text-align:center"><apex:outputText value="Your interest in Learning Path: '{!selLPName}' has been noted. You can see the status of your request under 'Requested Learning Paths'" escape="false" rendered="{!newLPName}"/></p>
+                    <p style="text-align:center"><apex:outputText value="You have already requested for this learning path. Please see the status of your request under 'Requested Learning Paths'" escape="false" rendered="{!sameLPName}"/></p>
+                </div>
+      </apex:outputPanel>
+  </apex:outputPanel>
+  <apex:outputPanel id="addAchievementPopup">
+     <apex:outputPanel styleClass="popupBackground" layout="block" rendered="{!displayAchievementPopup}"/>
+     <apex:outputPanel styleClass="custPopup" layout="block" rendered="{!displayAchievementPopup}">
+         <apex:commandButton value="X" action="{!closeAchievementPopup}" style="position:absolute;left:95%;right:5%;" immediate="true"
+                    html-formnovalidate="formnovalidate" rerender="addAchievementPopup"/>
+<div class="popup-content">
+ <h2 class="title-text text-center purple " text-align= "center" >New Achievement</h2>
+         <apex:pageBlock id="achievementBlock" >
+             <apex:pageBlockSection title="Enter Achievement details" collapsible="false" id="achievementBlocksection" >
+                 <apex:outputLabel value="Achievement Name" >
+                     <apex:inputField id="achievementName" value="{!addNewAchievement.Achievement_Name__c}" />
+                 </apex:outputLabel><p/>
+                 <apex:outputLabel value="Achievement Type" for="achievementType">
+                     <apex:inputField id="achievementType"  value="{!addNewAchievement.Achievement_Type__c}" />
+                 </apex:outputLabel><p/>
+                 <apex:outputLabel value="Completed Date">
+                     <apex:inputField id="completedDate" value="{!addNewAchievement.Date__c}" style="width:150px;"/>
+                 </apex:outputLabel><p/>
+                 <apex:outputLabel value="Description">
+                     <apex:inputText id="achievementDesc" value="{!addNewAchievement.Description__c}" size="40" maxlength="250"/>
+                 </apex:outputLabel>
+             </apex:pageBlockSection>
+             <apex:commandButton value="Save" action="{!addNewAchievement}" rerender="achievementsTable,addAchievementPopup" styleClass="btn" style="color: #FFF;text-decoration:none;background: #4c50a2;padding: 5px;text-align: center;"/>
+             <apex:commandButton value="Cancel" action="{!closeAchievementPopup}" rerender="addAchievementPopup" styleClass="btn" style="color: #FFF;text-decoration:none;background: #4c50a2;padding: 5px;text-align: center;" immediate="true"
+                    html-formnovalidate="formnovalidate"/> 
+        </apex:pageBlock>
+     </div>
+
+      </apex:outputPanel>
+  </apex:outputPanel>
+ <script type="text/javascript">
+    function callsaveStatusAction()
+    {
+        callsaveStatus();
+    }
+
+    </script>
+ </apex:pageBlock>
+</apex:form>
+</div>
+</div> 
+</apex:page>

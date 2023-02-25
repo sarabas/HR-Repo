@@ -1,0 +1,20 @@
+<apex:page showHeader="true" sidebar="true" readOnly="false">
+  <apex:includeLightning />
+  <div id="LightningComponentid" />
+  <script>
+    var paymentID = "{!$CurrentPage.parameters.id}";
+    var accID = "{!$CurrentPage.parameters.aid}";
+    console.log("Payment ID " + paymentID);
+    console.log("Received account ID : " + accID);
+    $Lightning.use("c:ApplyPaymentsLWCApp", function () {
+      $Lightning.createComponent(
+        "c:applyPaymentsLWC",
+        { recordId: paymentID, accountId: accID },
+        "LightningComponentid",
+        function (cmp) {
+          console.log("LWC Component added in VF page");
+        }
+      );
+    });
+  </script>
+</apex:page>

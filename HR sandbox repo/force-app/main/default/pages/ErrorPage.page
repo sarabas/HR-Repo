@@ -1,0 +1,14 @@
+<apex:page sidebar="false" showheader="false">
+    <html>
+        
+    <body style="background-color:#00000">
+        <br/><br/><br/>
+    <h1>  
+     <font color="black" size="6">   <center> Registration Failed!! Please Select a date and Try Again!!</center></font>
+    </h1>
+        
+    </body>
+    </html>    
+      
+    
+</apex:page>

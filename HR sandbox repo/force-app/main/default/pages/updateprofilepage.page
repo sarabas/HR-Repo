@@ -1,0 +1,927 @@
+<apex:page controller="TRGTFCMS.JobApplicationComponentController1" title="{!$Label.trgtfcms__job_application_page}"
+        showHeader="false" sideBar="false" action="{!init}" cache="false" language="{!selectLanguage}" id="page">
+    <head>
+            <meta name="keywords" content="{!metaKeywords}"/>
+            <meta name="viewport" content="width=device-width,initial-scale=1"/>
+            <apex:stylesheet value="{!$Page.TRGTFCMS__MobileResponsiveCss}"/>
+    </head>
+
+    <!-- Script & Css for Apply With Indeed Functionality -->
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<!--    <link href="{!$Resource.IndeedCss}" media="screen" rel="stylesheet" type="text/css" />-->
+<!--    <script src="{!$Resource.IndeedScript1}" type="text/javascript"></script>-->
+<!--    <script src="{!$Resource.IndeedScript3}" type="text/javascript"></script>-->
+    <script>
+        $(document).ready(function(){
+
+        var head_col_count =  $('table thead tr td').size();
+            for ( j=0; j <= head_col_count; j++ )  {
+                var head_col_label = $(' table thead td:nth-child('+ j +')').text();
+                $('.table .tr .td:nth-child('+ j +')').replaceWith(
+                    function(){
+                    return $('<td data-title="'+ head_col_label +'">').append($(this).contents());
+                    }
+                );
+            }
+        });
+    </script>
+    <script>(function(d, s, id) {
+        var js, iajs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)){return;}
+        js = d.createElement(s);
+        js.id = id;
+        js.async = true;
+        js.src = "{!$Resource.TRGTFCMS__IndeedScript2}";
+        iajs.parentNode.insertBefore(js, iajs);
+        }(document, 'script', 'indeed-apply-js'));
+    </script>
+
+    <script>
+        window.onload=function() {
+            var a = document.getElementsByClassName('indeed-apply-button');
+            for (var i=0;i<a.length;i++)
+            {
+                var anchorID = a[i].id;
+                document.getElementById(anchorID).style.cssText = 'height: 24px !important';
+            }
+            
+            var a1 = document.getElementsByClassName('indeed-apply-button-inner-left');
+            for (var i=0;i<a1.length;i++)
+            {
+                var anchorID = a1[i].id;
+                document.getElementById(anchorID).style.cssText = 'height: 24px !important';
+            }
+            
+            var a2 = document.getElementsByClassName('indeed-apply-button-inner-logo');
+            for (var i=0;i<a2.length;i++)
+            {
+                var anchorID = a2[i].id;
+                document.getElementById(anchorID).style.cssText = 'height: 24px !important';
+            }
+            var a3 = document.getElementsByClassName('indeed-apply-button-inner');
+            for (var i=0;i<a3.length;i++)
+            {
+                var anchorID = a3[i].id;
+                document.getElementById(anchorID).style.cssText = 'height: 24px !important';
+            }
+            
+        }
+    </script>
+
+    <style>
+    
+        .indeed-apply-button-label {
+            font-size: 65%;
+            position: relative;
+            top: -14%;
+        }
+
+        .indeed-apply-button {
+            height: 24px !important;
+            left: 7%;
+        }
+    
+        .outer {
+            background-color: #f2dede;
+            border-color: #ebccd1;
+            color: red;
+            height: 60px;
+        }
+    </style>
+
+    <!-- Script & Css ends Here -->
+
+    <script type="text/javascript">
+        function redirectSmartphone(url){
+            if (url && url.length > 0 && isSmartphone())
+            window.parent.location = url;
+        }
+        function isSmartphone(){
+            if (detectUagent("android")) return true;
+            else if (detectUagent("blackberry")) return true;
+            else if (detectUagent("iphone")) return true;
+            else if (detectUagent("palm")) return true;
+            else if (detectUagent("ipad")) return true;
+            else if (detectUagent("ipod")) return true;
+            return false;
+        }
+        function detectUagent(name){
+            var uagent = navigator.userAgent.toLowerCase();
+            return (uagent.search(name) > -1);
+        }
+
+        //redirectSmartphone("/TRGTFCMS__MobilePortal#jobApply/{!$CurrentPage.parameters.jobIds}");
+    </script>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="//cdn.jsdelivr.net/jquery.scrollto/2.1.0/jquery.scrollTo.min.js"></script>
+    <script src="//cdn.jsdelivr.net/jquery.localscroll/1.4.0/jquery.localScroll.min.js"></script>
+
+    <script>
+        // jQuery workarounds to make it work.
+        var a = window.parent.location.href ;
+        var resumeRequired = {!resumeRequirmentforLabel};
+        var pageParam = '{!pageParam}';
+
+        var j$ = jQuery.noConflict();
+        function fixId(myid) {
+                return '#' + myid.replace(new RegExp("(:|\\.)", "g"), '\\\$1');
+        }
+
+        // Remoting code
+        Visualforce.remoting.timeout = 120000; // Set timeout at page level
+
+        function Contact() {
+
+            this.Id = null;
+            this.FirstName = null;
+            this.LastName  = null;
+            this.Email = null;
+            this.MailingCity = null;
+            this.MailingState = null;
+            this.MailingPostalCode = null;
+            this.Phone = null;
+            this.Vendor_Notes__c = null;
+            this.MobilePhone = null;
+
+        }
+
+        function Reference() {
+            this.AVTRRT__First_Name__c = null;
+            this.AVTRRT__Last_Name__c = null;
+            this.TRGTFCMS__Organization_Institution__c = null;
+            this.AVTRRT__Email__c = null;
+            this.AVTRRT__Phone__c = null;
+            this.AVTRRT__Notes__c = null;
+            this.Name = null;
+        }
+
+        function additionalParameters() {
+            this.jobIds = null;
+            this.jobSite = null;
+            this.page = null;
+            this.profile = null;
+            this.account = null;
+            this.confirmPassword = null;
+            this.realContactId = null;
+        }
+
+        function returnValue() {
+            this.contactId = null;
+            this.jobApplyingListSize = null;
+        }
+
+        function clickSubmit() {
+
+            window.scrollTo(0, 0);parent.scrollTo(0, 0);
+            try {
+                    var contact = new Contact();
+                    var keysForIds = Object.keys(contact);
+                    var apexelements =  j$("[id*='page:Form1:contact_']");
+
+                    //Fetching Contact Object
+                    contact = getElementForContactObject(keysForIds,apexelements,'Contact');
+                    contact.Id = null;
+
+                    var sessionId = j$(fixId("page:Form1:session")).val();
+
+                    var pwd = j$(fixId("page:Form1:contact_FCMS__Password__c")).val();
+                    var confPwd = j$(fixId("page:Form1:confirmPassword")).val();
+
+                    //Displaying error message for required fields
+                    if(contact.FirstName == '' || contact.LastName == '' || contact.Email == '' || validateEmail(contact.Email)==false ) {
+
+                        error();
+
+                    }
+                    else if((j$(fixId("page:Form1:resume")).val() == '') && (resumeRequired) && (pageParam != 'Update Profile') ) {
+
+                        resumeError();
+
+                    }
+
+                    else if((j$(fixId("page:Form1:page")).val() == 'Update Profile') && (pwd != j$(fixId("page:Form1:confirmPassword")).val())) {
+
+                        passwordError();
+
+                    }
+
+                    else if(j$(fixId("page:Form1:page")).val() == 'Update Profile' && pwd.length > 0 && pwd.length < 8) {
+
+                        passwordError();
+                    }
+
+                    else {
+
+                            if((j$(fixId("page:Form1:page")).val() == 'Update Profile') && (j$(fixId("page:Form1:contact_FCMS__Password__c")).val() != null || j$(fixId("page:Form1:contact_FCMS__Password__c")).val() != '')) {
+                                contact.FCMS__Password__c = j$(fixId("page:Form1:contact_FCMS__Password__c")).val();
+
+                            }
+
+
+                            //Fetching References
+                            var refItems = j$('tr.reference-detail-tr').length;
+                            var refList = [];
+                            refList = getList(refItems,'Reference');
+
+
+                            var additionalParam = new additionalParameters();
+
+                            additionalParam.jobIds = j$(fixId("page:Form1:jobIds")).val();
+                            additionalParam.jobSite = j$(fixId("page:Form1:jobSite")).val();
+                            additionalParam.page = j$(fixId("page:Form1:page")).val();
+                            additionalParam.profile = j$(fixId("page:Form1:p")).val();
+                            additionalParam.confirmPassword =  j$(fixId("page:Form1:confirmPassword")).val();
+                            additionalParam.confirmPassword =  j$(fixId("page:Form1:confirmPassword")).val();
+                            additionalParam.realContactId =  j$(fixId("page:Form1:realContactId")).val();
+
+                            remoteAction(contact, refList, additionalParam);
+                    }
+                } catch(e) {
+                    alert(e);
+                }
+
+        }
+
+        //Remote Action
+        function remoteAction(contact, refList, additionalParam) {
+            Visualforce.remoting.Manager.invokeAction(
+                '{!$RemoteAction.JobApplicationComponentController1.saveNewContact}',
+                contact, refList, additionalParam,
+                handleResult,
+                {escape: true}
+            );
+        }
+
+        //Handle result
+        function handleResult(result, event) {
+            if (event.status) {
+
+                returnValue = result;
+                if(result.contactId != null){
+                    j$(fixId("page:Form1:contactId")).val(result.contactId);
+                    j$(fixId("page:Form1:jobApplyingForListSize")).val(result.jobApplyingListSize);
+                    resend();
+                } else {
+
+                    duplicateNew();
+                }
+
+            } else if (event.type === 'exception') {
+
+                j$(fixId("page:form1:excMsg")).val(event.message);
+                displayException();
+
+            } else {
+                alert(event.message+'Unable to process please try again');
+
+            }
+
+        }
+
+        // Fetching form elements
+        function getElementForContactObject (array,apexelements,objName) {
+
+            var objWithValue = null;
+
+            if(objName == "Contact"){
+                objWithValue = new Contact();
+                objName = "contact";
+            }
+            else if(objName == "Reference"){
+                objWithValue = new Reference();
+                objName = "Reference";
+            }
+
+            for(i= 0; i < array.length  ; i++) {
+                var element = '';
+                element = "[id*='"+objName+"_" + array[i] + "']";
+                if(apexelements.filter(element).val() != 'undefined') {
+
+                    objWithValue[array[i]] = apexelements.filter(element).val();
+                }else {
+                    objWithValue[array[i]] = null;
+                }
+
+            }
+
+            return objWithValue;
+
+        }
+
+        function getList(count,objName){
+            var objList = [];
+            for(var i=0;i<count;i++){
+                    var obj="";
+                    var objId = "";
+                    if(objName == "Reference"){
+                        obj = new Reference();
+                        objId = 'page:Form1:ReferenceRep:'+i+':Reference_';
+                    }
+                    var KeysForIds = Object.keys(obj);
+                    var elements = j$("[id*='"+objId +"']");
+                    obj = getElementForContactObject(KeysForIds,elements,objName);
+
+                    objList.push(obj);
+            }
+            return objList;
+        }
+
+        function validateEmail(email) {
+            var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            return re.test(email);
+        }
+
+    </script>
+
+    <style>
+        <apex:outputText value="{!cmsCssCustom}" />
+    </style>
+
+    <style>
+        .field-text1 {
+            width:110px;
+            height:25px;
+            border:1px solid #8ebada;
+            margin:0;
+            padding:0;
+        }
+    </style>
+
+
+    <apex:form id="Form1">
+    <apex:pageMessages />
+
+    <apex:actionFunction action="{!duplicateErrorMessage}" name="duplicateNew" >
+
+    </apex:actionFunction>
+
+    <apex:actionFunction action="{!updateWithAttachment}" name="resend" >
+
+    </apex:actionFunction>
+
+    <apex:actionFunction action="{!displayErrorMessage}" name="error" >
+
+    </apex:actionFunction>
+
+    <apex:actionFunction action="{!resumeErrorMessage}" name="resumeError" >
+
+    </apex:actionFunction>
+
+    <apex:actionFunction action="{!displayExcMessage}" name="displayException" >
+
+    </apex:actionFunction>
+
+    <apex:actionFunction action="{!passwordErrorMessage}" name="passwordError" >
+
+    </apex:actionFunction>
+
+
+
+    <apex:inputHidden value="{!jobIds}" id="jobIds"/>
+    <apex:inputHidden value="{!jobSite}" id="jobSite"/>
+    <apex:inputHidden value="{!pageParam}" id="page"/>
+    <apex:inputHidden value="{!profile}" id="p"/>
+    <apex:inputHidden value="{!realContactId}" id="realContactId"/>
+    <apex:inputHidden value="{!newContactId}" id="contactId"/>
+    <apex:inputHidden value="{!excMsg}" id="excMsg"/>
+    <apex:inputHidden value="{!jobApplyingForListSize}" id="jobApplyingForListSize"/>
+    <apex:inputHidden value="{!sessionId}" id="session"/>
+
+
+ <div class="divJobApp">
+    <center>
+    <apex:outputText >Thanks you for your update.</apex:outputText>
+        <!--<apex:outputLink value="/apex/FCMS__CMSLayout" styleClass="jobTitleList" onclick="window.open('{!$Site.CurrentSiteUrl}FCMS__CMSLayout?page=JobListPage&sessionId={!$CurrentPage.parameters.sessionId}&jobSite={!$CurrentPage.parameters.jobSite}&p={!$CurrentPage.parameters.p}','_parent'); return false" rendered="{!displayThankYouMessageOnNewPage}">
+            <input type="button" value="{!$Label.TRGTFCMS__Search_for_More_Jobs}" />
+        </apex:outputLink>-->
+    </center>
+    </div>
+
+        <div style="{!IF(!noJobSelected && (jobList.size > 0 && jobList[0].AVTRRT__Closed__c),'display:block', 'display:none')}" class = "outer">
+            <apex:outputPanel rendered="{!!noJobSelected && (jobList.size > 0 && jobList[0].AVTRRT__Closed__c)}">
+                <div class="alert-danger alert-dismissible fade in"
+                     style="padding: 15px; !important; border-radius: 4px; padding-right:35px">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">
+                        &times;
+                    </a>
+                    <strong>Error! </strong>
+                    <apex:outputText value="This job is closed" />
+                </div>
+            </apex:outputPanel>
+        </div>
+
+    <apex:outputPanel id="panId">
+        <div class="wrapperJobApp">
+                    <div id="oneJobApp">
+                        <table>
+                            <tr>
+                                <td>
+                                    <div class="section-header"><h3>{!$Label.trgtfcms__general_information}</h3></div>
+                                    <div class="row">* <I>{!$Label.trgtfcms__indicates_required_fields}</I></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <apex:outputLabel for="contact_FirstName__c" styleClass="field-labelJobApp" > <span class="required">*</span>{!$Label.trgtfcms__first_name}</apex:outputLabel>
+                                    <apex:inputField value="{!contact.FirstName}" styleClass="field-textJobApp" id="contact_FirstName" required="true"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <apex:outputLabel for="contact_LastName" styleClass="field-labelJobApp" ><span class="required">*</span>{!$Label.trgtfcms__last_name}</apex:outputLabel>
+                                    <apex:inputField value="{!contact.LastName}" styleClass="field-textJobApp" id="contact_LastName" required="true"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <apex:outputLabel for="contact_Email" styleClass="field-labelJobApp" ><span class="required">*</span>{!$Label.trgtfcms__email}</apex:outputLabel>
+                                    <apex:inputField value="{!contact.Email}" styleClass="field-textJobApp" id="contact_Email" required="true"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <apex:outputLabel for="contact_MailingCity" styleClass="field-labelJobApp" value="{!$Label.trgtfcms__city}"/>
+                                    <apex:inputField value="{!contact.MailingCity}" styleClass="field-textJobApp" id="contact_MailingCity" />
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <apex:outputLabel for="contact_MailingState" styleClass="field-labelJobApp" value="{!$Label.trgtfcms__state}" />
+                                    <apex:inputField value="{!contact.MailingState}" styleClass="field-textJobApp" id="contact_MailingState"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <apex:outputLabel for="contact_MailingPostalCode" styleClass="field-labelJobApp" value="{!$Label.trgtfcms__zip_postal_code}" />
+                                    <apex:inputField value="{!contact.MailingPostalCode}" styleClass="field-textJobApp" id="contact_MailingPostalCode"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <apex:outputLabel for="contact_Phone" styleClass="field-labelJobApp" value="{!$Label.trgtfcms__phone}"/>
+                                    <apex:inputField value="{!contact.Phone}" styleClass="field-textJobApp" id="contact_Phone"/>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <apex:outputPanel rendered="{!if($CurrentPage.parameters.p == 'Vendor Profile',true,false)}">
+                                        <apex:outputLabel for="contact_Vendor_Notes__c" styleClass="field-labelJobApp" value="Note" />
+                                        <apex:inputField value="{!contact.TRGTFCMS__Vendor_Notes__c}" style="height: 67px;" styleClass="field-textJobApp" id="contact_Vendor_Notes__c"/>
+                                    </apex:outputPanel>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div id="twoJobApp">
+                    <table style="display: {! IF(NOT(ForceComAutorization) && IF($CurrentPage.parameters.page=='Update Profile',true,false), 'block', 'none')}">
+                                <tr>
+                                    <td>
+                                    <apex:outputPanel rendered="{! NOT(ForceComAutorization) && IF($CurrentPage.parameters.page=='Update Profile',true,false) }">
+                            <div class="profile-information" style="width:450px">
+                                <div class="section-header">
+                                    <h3>{!$Label.trgtfcms__password_change}</h3>
+                                </div>
+                                <div class="row">
+                                    <apex:outputLabel for="contact_UserName__c" styleClass="field-label" value="{!$Label.trgtfcms__user_name}" />
+                                    <apex:outputText value="{!contact.FCMS__UserName__c}" styleClass="" id="contact_FCMS__UserName__c" />
+                                </div>
+                                <div class="row">
+                                    <apex:outputLabel for="contact_FCMS__Password__c" styleClass="field-label" value="{!$Label.trgtfcms__password}" />
+                                    <apex:inputSecret value="{!password}" styleClass="field-text" id="contact_FCMS__Password__c" />
+                                </div>
+                                <div class="row">
+                                    <apex:outputLabel for="confirmPassword" styleClass="field-label" value="{!$Label.trgtfcms__confirm_password}" />
+                                    <apex:inputSecret value="{!confirmPassword}" styleClass="field-text" id="confirmPassword" />
+                                </div>
+                            </div>
+                        </apex:outputPanel>
+                                    </td>
+                                </tr>
+                            </table>
+                        <apex:outputPanel id="thePanel2" rendered="{!if($CurrentPage.parameters.page=='Update Profile',false,true)}">
+
+                            <table style="display: {!if($CurrentPage.parameters.p == 'Candidate','table','none')}">
+                                <tr>
+                                    <td>
+                                        <apex:outputPanel rendered="{!if($CurrentPage.parameters.p == 'Candidate',true,false)}">
+
+                                            <apex:outputPanel rendered="{!applyingFor}">
+                                                <div class="section-header">
+                                                    <div>
+                                                        <h3>{!$Label.trgtfcms__you_are_applying_for_double_dot}</h3>
+                                                    </div>
+                                                </div>
+
+                                                <apex:repeat value="{!jobApplyingForList}" var="job" >
+                                                    <div class="row">
+                                                    <B>
+                                                    <apex:outputLink value="/apex/FCMS__CMSLayout" styleClass="jobTitleList" target="_blank">
+                                                    <apex:param name="jobIds" value="{!job.Id}"/>
+                                                    <apex:param name="page" value="JobDetailPage" />
+                                                    <apex:param name="sessionId" value="{!$CurrentPage.parameters.sessionId}" />
+                                                    <apex:param name="jobSite" value="{!$CurrentPage.parameters.jobSite}" />
+                                                    <apex:param name="p" value="{!$CurrentPage.parameters.p}" />
+                                                    <apex:outputText value="{!job.AVTRRT__Job_Title__c}" styleClass="selectedJobs"/>
+                                                    </apex:outputLink>
+                                                    </B>
+                                                    </div>
+                                                </apex:repeat>
+                                            </apex:outputPanel>
+                                        </apex:outputPanel>
+                                    </td>
+                                </tr>
+                            </table>
+                            <table style="display:{!if($CurrentPage.parameters.p == 'Vendor Profile','table','none')}">
+                                <tr>
+                                    <td>
+                                        <apex:outputPanel rendered="{!if($CurrentPage.parameters.p == 'Vendor Profile',true,false)}">
+                                            <apex:outputPanel rendered="{!applyingFor}">
+                                                <div class="section-header">
+                                                    <div>
+                                                        <h3>{!$Label.trgtfcms__you_submitting_candidates_for}</h3>
+                                                    </div>
+                                                </div>
+                                                <apex:repeat value="{!jobApplyingForList}" var="job" >
+                                                    <div class="row">
+                                                        <B>
+                                                        <apex:outputLink value="/apex/FCMS__CMSLayout" styleClass="jobTitleList" target="_blank">
+                                                            <apex:param name="jobIds" value="{!job.Id}"/>
+                                                            <apex:param name="page" value="JobDetailPage" />
+                                                            <apex:param name="sessionId" value="{!$CurrentPage.parameters.sessionId}" />
+                                                            <apex:param name="jobSite" value="{!$CurrentPage.parameters.jobSite}" />
+                                                            <apex:param name="p" value="{!$CurrentPage.parameters.p}" />
+                                                            <apex:outputText value="{!job.AVTRRT__Job_Title__c}" styleClass="selectedJobs"/>
+                                                        </apex:outputLink>
+                                                        </B>
+                                                    </div>
+                                                </apex:repeat>
+                                            </apex:outputPanel>
+                                        </apex:outputPanel>
+                                    </td>
+                                </tr>
+                            </table>
+                            <table style="display:{!if($CurrentPage.parameters.p == 'Candidate','table','none')}">
+                                <tr>
+                                    <td>
+                                        <apex:outputPanel rendered="{!if($CurrentPage.parameters.p == 'Candidate',true,false)}">
+                                            <apex:outputPanel rendered="{!appliedFor}">
+                                                <div class="section-header">
+                                                    <div>
+                                                        <h3>{!$Label.trgtfcms__you_have_already_applied_for}</h3>
+                                                    </div>
+                                                </div>
+                                                <apex:repeat value="{!jobAppliedForList}" var="job" >
+                                                    <div class="row">
+                                                        <B>
+                                                        <apex:outputLink value="/apex/FCMS__CMSLayout" styleClass="jobTitleList" target="_blank" >
+                                                        <apex:param name="jobIds" value="{!job.Id}"/>
+                                                        <apex:param name="page" value="JobDetailPage" />
+                                                        <apex:param name="sessionId" value="{!$CurrentPage.parameters.sessionId}" />
+                                                        <apex:param name="jobSite" value="{!$CurrentPage.parameters.jobSite}" />
+                                                        <apex:param name="p" value="{!$CurrentPage.parameters.p}" />
+                                                        <apex:outputText value="{!job.AVTRRT__Job_Title__c}" styleClass="selectedJobs"/>
+                                                        </apex:outputLink>
+                                                        </B>
+                                                    </div>
+                                                </apex:repeat>
+                                            </apex:outputPanel>
+                                        </apex:outputPanel>
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <table style="display: {!if($CurrentPage.parameters.p == 'Vendor Profile','table','none')}">
+                                <tr>
+                                    <td>
+                                        <apex:outputPanel rendered="{!if($CurrentPage.parameters.p == 'Vendor Profile',true,false)}">
+                                            <apex:outputPanel rendered="{!appliedFor}">
+                                                <div class="section-header">
+                                                    <div>
+                                                        <h3>{!$Label.trgtfcms__you_submitted_candidates_for}</h3>
+                                                    </div>
+                                                </div>
+                                                <apex:repeat value="{!jobAppliedForList}" var="job" >
+                                                    <div class="row">
+                                                    <B>
+                                                        <apex:outputLink value="/apex/FCMS__CMSLayout" styleClass="jobTitleList" target="_blank">
+                                                        <apex:param name="jobIds" value="{!job.Id}"/>
+                                                        <apex:param name="page" value="JobDetailPage" />
+                                                        <apex:param name="sessionId" value="{!$CurrentPage.parameters.sessionId}" />
+                                                        <apex:param name="jobSite" value="{!$CurrentPage.parameters.jobSite}" />
+                                                        <apex:param name="p" value="{!$CurrentPage.parameters.p}" />
+                                                        <apex:outputText value="{!job.AVTRRT__Job_Title__c}" styleClass="selectedJobs"/>
+                                                        </apex:outputLink>
+                                                    </B>
+                                                    </div>
+                                                </apex:repeat>
+                                            </apex:outputPanel>
+                                        </apex:outputPanel>
+                                    </td>
+                                </tr>
+                            </table>
+
+
+
+                            <table>
+                                <tr style="display:{!IF(noJobSelected, 'table-row', 'none')}">
+                                    <td>
+                                        <b><apex:outputText rendered="{!noJobSelected}">{!$Label.trgtfcms__no_jobs_are_selected_for_application}</apex:outputText></b>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td >
+                                        <div class="section-header">
+                                            <div>
+                                                <h3>{!$Label.TRGTFCMS__Resume_and_Additional_Documents}</h3>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr style="display:{!if($CurrentPage.parameters.p == 'Candidate','table-row','none')}">
+                                    <td >
+                                        <apex:outputPanel rendered="{!if($CurrentPage.parameters.p == 'Candidate',true,false)}">
+                                            <apex:outputPanel rendered="{!resumeRequirmentforLabel}">
+                                                <div>
+                                                    <span class="required">*</span>
+                                                    {!$Label.trgtfcms__please_upload_your_updated_resume_and_additional_documents}
+                                                </div>
+                                            </apex:outputPanel>
+                                        </apex:outputPanel>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="fileId">
+                                        <apex:outputLabel styleClass="field-labelJobApp" style="width:150px;padding:8px;padding-left: 2px;">{!$Label.trgtfcms__resume}</apex:outputLabel>
+                                        <apex:inputFile value="{!attachment.Body}"
+                                        filename="{!attachment.Name}"
+                                        accept=".doc,.docx,.rtf,.pdf,.html,.txt" id="resume" />
+                                        <hr style="margin:0" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="fileId">
+                                        <apex:outputLabel styleClass="field-labelJobApp" style="width:150px;padding:8px;padding-left: 2px;">{!$Label.trgtfcms__additional_document}</apex:outputLabel>
+                                        <apex:inputFile value="{!secondAttachment.Body}"
+                                        filename="{!secondAttachment.Name}"
+                                        accept=".doc,.docx,.rtf,.pdf,.html,.txt" />
+                                        <hr style="margin:0;height: 0px;" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="fileId">
+                                        <apex:outputLabel styleClass="field-labelJobApp" style="width:150px;padding:8px;padding-left: 2px;">{!$Label.trgtfcms__additional_document}</apex:outputLabel>
+                                        <apex:inputFile value="{!thirdAttachment.Body}"
+                                        filename="{!thirdAttachment.Name}"
+                                        accept=".doc,.docx,.rtf,.pdf,.html,.txt" />
+                                        <hr style="margin:0" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="fileId">
+                                        <apex:outputLabel styleClass="field-labelJobApp" style="width:150px;padding:8px;padding-left: 2px;">{!$Label.trgtfcms__cover_letter}</apex:outputLabel>
+                                        <div style="display:inline-block;">
+                                            <apex:inputCheckbox value="{!paste}" id="idPaste" title="" onclick="paste();" />
+                                            <span class="pasteLB" style="vertical-align: 1px;">{!$Label.trgtfcms__paste}</span>
+                                            <apex:inputCheckbox value="{!upload}" id="idUpload" title="" onclick="upload();" style="vertical-align: 1px;left:20px;"/>
+                                            <span class="uploadLB" style="vertical-align: 1px;left:20px;position:relative;">{!$Label.trgtfcms__upload}</span>
+                                        </div>
+                                        <div class="row">
+                                            <apex:outputLabel styleClass="field-labelJobApp" style="width:150px;padding:8px;padding-left: 2px;"/>
+                                            <apex:inputFile id="idCoverLetterFile" value="{!coverLetterAttachment.Body}"
+                                            filename="{!coverLetterAttachment.Name}"
+                                            accept=".doc,.docx,.rtf,.pdf,.html,.txt" />
+                                            <apex:inputField id="idCoverLetterText" value="{!contact.AVTRRT__Cover_Letter__c}" styleClass="field-textarea"/>
+                                            <script>
+                                                var idPaste = j$(fixId('{!$Component.idPaste}'));
+                                                var idUpload = j$(fixId('{!$Component.idUpload}'));
+                                                var idCoverLetterFile = j$(fixId('{!$Component.idCoverLetterFile}'));
+                                                var idCoverLetterText = j$(fixId('{!$Component.idCoverLetterText}'));
+                                            </script>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </apex:outputPanel>
+                    </div>
+                </div>
+
+        <apex:outputPanel id="references" rendered="{!ReferencesBlockIsShow}" >
+                    <div class="section-header" id="divId">
+                            <h3 >{!$Label.TRGTFCMS__References_Header}</h3>
+                    </div>
+                    <table class="application-ref-table table table2_app_page tableJobList">
+                        <thead>
+                            <tr>
+                                <td>
+                                    <apex:outputLabel for="referebce_Firts_Name" styleClass="field-labelJobApp" >{!$Label.trgtfcms__first_name}</apex:outputLabel>
+                                </td>
+                                <td>
+                                    <apex:outputLabel for="referebce_Last_Name" styleClass="field-labelJobApp" >{!$Label.trgtfcms__last_name}</apex:outputLabel>
+                                </td>
+                                <td>
+                                    <apex:outputLabel for="referebce_Organization" styleClass="field-labelJobApp" >{!$Label.trgtfcms__organization}</apex:outputLabel>
+                                </td>
+                                <td>
+                                    <apex:outputLabel for="reference_AVTRRT__Email__c" styleClass="field-labelJobApp" >{!$Label.trgtfcms__email}</apex:outputLabel>
+                                </td>
+                                <td>
+                                    <apex:outputLabel for="references1_AVTRRT__Phone__c" styleClass="field-labelJobApp" >{!$Label.trgtfcms__phone}</apex:outputLabel>
+                                </td>
+                                <td>
+                                    <apex:outputLabel for="references1_TRGTFCMS__Reference_Note__c" styleClass="field-labelJobApp" >{!$Label.trgtfcms__references}</apex:outputLabel>
+                                </td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <apex:variable var="i" value="{!1}"/>
+                            <apex:repeat value="{!ReferencesLoginList}"  var="RefCount" id="ReferenceRep" rows="3">
+                            <tr id="trRef" style="display:none;">
+                            <td colspan="6">
+                            <div class="section-header" >
+                                <h3 >{!$Label.TRGTFCMS__References_Header}{!i}</h3>
+                            </div>
+                            </td>
+                            </tr>
+                            <tr class ="reference-detail-tr tr">
+                                <td class="td">
+                                    <apex:inputField value="{!RefCount.AVTRRT__First_Name__c}" styleClass="field-textJobApp" id="Reference_AVTRRT__First_Name__c"  />
+                                </td>
+                                <td class="td">
+                                    <apex:inputField value="{!RefCount.AVTRRT__Last_Name__c}" styleClass="field-textJobApp" id="Reference_AVTRRT__Last_Name__c"  />
+                                </td>
+                                <td class="td">
+                                    <apex:inputField value="{!RefCount.TRGTFCMS__Organization_Institution__c}" styleClass="field-textJobApp" id="Reference_TRGTFCMS__Organization_Institution__c"   />
+                                </td>
+                                <td class="td">
+                                    <apex:inputField value="{!RefCount.AVTRRT__Email__c}" styleClass="field-textJobApp" id="Reference_AVTRRT__Email__c"   />
+                                </td>
+                                <td class="td">
+                                    <apex:inputField value="{!RefCount.AVTRRT__Phone__c}" styleClass="field-textJobApp" id="Reference_AVTRRT__Phone__c"   />
+                                </td>
+                                <td class="td">
+                                    <apex:inputField value="{!RefCount.AVTRRT__Notes__c}" styleClass="field-textJobApp" id="Reference_AVTRRT__Notes__c"  />
+                                    <apex:inputHidden value="{!RefCount.Name}"
+                                                      id="Reference_Name">
+                                    </apex:inputHidden>
+                                    <apex:variable var="i" value="{!i+1}"/>
+                                </td>
+
+                            </tr>
+                            </apex:repeat>
+                        </tbody>
+                    </table>
+                </apex:outputPanel>
+
+        <table style="width:95%;">
+            <tr>
+                <td class="" style="border:none;">
+                    <div class="form-submit1 table_apply_button application_button">
+                    <apex:commandButton onclick="window.scrollTo(0, 0);parent.scrollTo(0, 0);rerenderForm();" action="{!save}" value="Save" rendered="{!renderApplyButton}" />
+                        <apex:outputPanel rendered="{!noJobSelected || (jobList.size > 0 && !jobList[0].AVTRRT__Closed__c)}">
+                        <apex:outputPanel rendered="{!if($CurrentPage.parameters.p == 'Candidate', true, false)}">
+                            <apex:commandButton onclick="window.scrollTo(0, 0);parent.scrollTo(0, 0);rerenderForm();" action="{!save}" value="Save" rendered="{!renderApplyButton}" />
+                            <script>
+                                function rerenderForm(){
+                                    var joblistpage = j$(fixId('{!$Component.jobListPage}'));
+                                    joblistpage.submit();
+                                }
+                            </script>
+                        </apex:outputPanel>
+                        </apex:outputPanel>
+                        <apex:outputPanel rendered="{!if($CurrentPage.parameters.p == 'Candidate' && (noJobSelected || (jobList.size > 0 && !jobList[0].AVTRRT__Closed__c)),true,false)}">
+                            <apex:commandButton onclick="clickSubmit(); return false;"  value="{!IF($CurrentPage.parameters.page=='MyProfile', $Label.trgtfcms__update, $Label.trgtfcms__apply)}" rendered="{!renderAjaxApplyButton}" />
+
+                        </apex:outputPanel>
+                        <apex:outputPanel rendered="{!if($CurrentPage.parameters.p == 'Vendor Profile',true,false)}">
+                            <apex:commandButton onclick="window.scrollTo(0, 0);parent.scrollTo(0, 0);" action="{!save}" value="{!IF(contact.Id == null, $Label.trgtfcms__submit_candidates, $Label.trgtfcms__update)}" />
+                        </apex:outputPanel>
+                        <apex:commandButton value="{!$Label.trgtfcms__reset}" onclick="window.location.href = '{!currentUrlJobApplicationPage}';return false;" />
+
+                    <apex:outputPanel rendered="{!noJobSelected || (jobList.size > 0 && !jobList[0].AVTRRT__Closed__c)}">
+                        <apex:outputPanel rendered="{!linkedInButtonBlockIsShow}">
+                            <div style="padding-top:5px;">
+                                <a href="https://www.linkedin.com/uas/oauth2/authorization?response_type=code&client_id={!linkedInApiKey}&scope=r_emailaddress%20r_basicprofile&state=DCEEFWF45453sdffef424&redirect_uri={!URLENCODE(linkedInRedirectUrl + 'TRGTFCMS__LinkedInApplyToJob?jobId=' + linkedInJobIds + '&sessionId=' + sessionId + '&profile=' + profile )}" target="_parent">
+                                    <img src="{!$Resource.TRGTFCMS__ApplyWithLinkedInImg}" style="width: 150px;margin-bottom: -10px;padding-left: 16px;" />
+                                </a>
+                            </div>
+                        </apex:outputPanel>
+
+                        <apex:outputPanel rendered="{!linkedInButtonBlockIsFullProfile}">
+                            <div style="padding-top:5px;">
+                                <a href="https://www.linkedin.com/uas/oauth2/authorization?response_type=code&client_id={!linkedInApiKey}&scope=r_emailaddress%20r_basicprofile%20r_fullprofile%20r_contactinfo&state=DCEEFWF45453sdffef424&redirect_uri={!URLENCODE(linkedInRedirectUrl + 'TRGTFCMS__LinkedInApplyToJob?jobId=' + linkedInJobIds + '&sessionId=' + sessionId + '&profile=' + profile )}" target="_parent">
+                                    <img src="{!$Resource.TRGTFCMS__ApplyWithLinkedInImg}" style="width: 150px;margin-bottom: -10px;padding-left: 16px;" />
+                                </a>
+                            </div>
+                        </apex:outputPanel>
+                    </apex:outputPanel>
+
+                    <br />
+
+                    <!-- Apply With Indeed Starts -->
+                    <apex:outputPanel rendered="{!noJobSelected || (jobList.size > 0 && !jobList[0].AVTRRT__Closed__c)}">
+                        <apex:outputPanel rendered="{!enableIndeedButton && !noJobSelected && jobList.size > 1}">
+                            <a id="indeedButtonsHref" href="#indeedButtonsContainer"
+                                    onclick="j$('#indeedButtonsContainer').show();j$('#indeedButtonsHref').hide()">
+                                <img src="{!$Resource.TRGTFCMS__ApplyWithIndeedImg}" style="padding-left: 16px;" />
+                            </a>
+                            <table id="indeedButtonsContainer" style="display:none">
+                            <apex:repeat value="{!jobList}" var="job" >
+                            <tr>
+                                <td style="text-align: right">{!job.AVTRRT__Job_Title__c}</td>
+                                <td>
+                                    <span class="indeed-apply-widget"
+                                            data-indeed-apply-apiToken="{!indeedAPIToken}"
+                                            data-indeed-apply-jobId="{!job.Name}"
+                                            data-indeed-apply-jobTitle="{!job.Name} - {!job.AVTRRT__Job_Title__c}"
+                                            data-indeed-apply-jobCompanyName="{!job.AVTRRT__Account_Job__r.Name}"
+                                            data-indeed-apply-email = "{!indeedEmployerEmail}">
+                                        <a class="indeed-apply-button" href="javascript:void(0);" id="indeed-ia-1445867908475-1">
+                                            <span class="indeed-apply-button-inner-left" id="indeed-ia-1445867908475-1left">
+                                                <span class="indeed-apply-button-inner-logo" id="indeed-ia-1445867908475-1logo"></span>
+                                            </span>
+                                            <span class="indeed-apply-button-inner" id="indeed-ia-1445867908475-1inner">
+                                                <span class="indeed-apply-button-label" id="indeed-ia-1445867908475-1label">Apply with Indeed</span>
+                                                <span class="indeed-apply-button-cm">
+                                                    <img src="//d3fw5vlhllyvee.cloudfront.net/indeedapply/s/8412a17/check.png" style="border: 0px;"/>
+                                                </span>
+                                            </span>
+                                        </a>
+                                    </span>
+                                </td>
+                            </tr>
+                            </apex:repeat>
+                            </table>
+                        </apex:outputPanel>
+                        <apex:outputPanel rendered="{!enableIndeedButton && !noJobSelected && jobList.size == 1}">
+                            <apex:repeat value="{!jobList}" var="job" >
+                                <span class="indeed-apply-widget"
+                                        data-indeed-apply-apiToken="{!indeedAPIToken}"
+                                        data-indeed-apply-jobId="{!job.Name}"
+                                        data-indeed-apply-jobTitle="{!job.Name} - {!job.AVTRRT__Job_Title__c}"
+                                        data-indeed-apply-jobCompanyName="{!job.AVTRRT__Account_Job__r.Name}"
+                                        data-indeed-apply-email = "{!indeedEmployerEmail}">
+                                    <a class="indeed-apply-button" href="javascript:void(0);" id="indeed-ia-1445867908475-1">
+                                        <span class="indeed-apply-button-inner-left" id="indeed-ia-1445867908475-1left">
+                                            <span class="indeed-apply-button-inner-logo" id="indeed-ia-1445867908475-1logo"></span>
+                                        </span>
+                                        <span class="indeed-apply-button-inner" id="indeed-ia-1445867908475-1inner">
+                                            <span class="indeed-apply-button-label" id="indeed-ia-1445867908475-1label">Apply with Indeed</span>
+                                            <span class="indeed-apply-button-cm">
+                                                <img src="//d3fw5vlhllyvee.cloudfront.net/indeedapply/s/8412a17/check.png" style="border: 0px;"/>
+                                            </span>
+                                        </span>
+                                    </a>
+                                </span>
+                            </apex:repeat>
+                        </apex:outputPanel>
+                    </apex:outputPanel>
+                        <!-- Apply With Indeed Ends -->
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </apex:outputPanel>
+    </apex:form>
+
+    <script>
+    function paste() {
+        idUpload.attr('checked', !idPaste.is(':checked'));
+        pasteOrUpload();
+    }
+    function upload() {
+        idPaste.attr('checked', !idUpload.is(':checked'));
+        pasteOrUpload();
+    }
+    function pasteOrUpload() {
+        idCoverLetterFile.css('display', idPaste.is(':checked') ? 'none' : 'block');
+        idCoverLetterText.css('display', idPaste.is(':checked') ? 'block' : 'none');
+    }
+    pasteOrUpload();
+    
+
+    </script>
+
+<script type="text/javascript">
+function autoResizeIframe() {
+        var iframesEle = window.parent.document.getElementsByTagName('Iframe');
+        for(var i=0; i<iframesEle.length; i++) {
+            var newHeight;
+
+            if (iframesEle[i].contentDocument) {
+            newHeight = iframesEle[i].contentDocument.documentElement.scrollHeight + 300 + 'px'; //FF 3.0.11, Opera 9.63, and Chrome
+            } else {
+            newHeight = iframesEle[i].contentWindow.document.body.scrollHeight + 300 + 'px'; //IE6, IE7 and Chrome
+            }
+        
+
+            iframesEle[i].style.height = newHeight;
+            iframesEle[i].parentNode.parentNode.style.height = newHeight;
+        }
+    }
+    //update the Iframe height too
+        autoResizeIframe();
+        </script>
+</apex:page>

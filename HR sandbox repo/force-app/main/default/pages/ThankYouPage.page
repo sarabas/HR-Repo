@@ -1,0 +1,379 @@
+<apex:page standardController="Contact" extensions="ThankYouPageController" sidebar="false" showheader="false" >
+    <html>
+    <head>
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+      <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</head>  
+    <div class="container"><div class="row">
+<div class="col-md-12"><div class="fre-site-logo fre-image">
+                <a href="#">
+                    <img class=" ls-is-cached lazyloaded" alt="Mom Relaunch" src="https://www.momrelaunch.com/wp-content/uploads/2017/10/MR_logo-300x188-1.png"/>                </a>
+                    </div>
+                   </div>
+ </div>
+ </div>
+ <div class="container-fluid">
+<div class="row">
+ 
+    <div class="background_img">
+                    <img class=" lazyloaded" src="https://cdn.shortpixel.ai/client/to_webp,q_glossy,ret_img/https://www.momrelaunch.com/wp-content/uploads/2019/11/home-banner.jpg" data-src="https://cdn.shortpixel.ai/client/q_glossy,ret_img/https://www.momrelaunch.com/wp-content/uploads/2019/01/about-img-1.png" Style="width: 100%;"/>
+                   </div> </div>
+    
+</div>
+<style type="text/css">
+    
+        .myFormStyle {
+        <!--     background-color: #9c80c2; -->
+        <!--background-color: #4a3ea3;-->
+         background-color:#fff;
+        }
+        .image {
+        <!--     background-color: #9c80c2; -->
+        background-color : #00000;
+         margin-top:500px;
+        }
+        .bPageBlock .pbTitle {
+        width: 100%;    
+        text-align: center;
+        font-size: 100%;
+        }
+         .pbheader h3 {
+        white-space: pre;
+        }
+        .background_img{
+        width:100%;
+        }
+.headerRow{background-color:#4c50a2;
+line-height: 25px;
+color:white;
+text-align: center;}
+             
+        .hideTableHeader {
+            display: none;
+        }
+        
+    
+    .submit_button {
+    background-color: rgb(76, 80, 162) ! important;
+    background-image: none !important;
+    initial.fre-btn, .fre-btn-disable, .fre-payment-list>li>.btn: ;
+    background-origin: padding-box;
+    background-position-x: 0% !important;
+    background-position-y: 0% !important;
+    background-repeat-x: ;
+    background-repeat-y: ;
+    background-size: auto !important;
+    border-bottom-color: rgb(76, 80, 162) !important;
+    border-bottom-left-radius: 20px !important;
+    border-bottom-right-radius: 20px !important;
+    border-bottom-style: solid !important;
+    border-bottom-width: 2px !important;
+    border-image-outset: 0px !important;
+    border-image-repeat: stretch !important;
+    border-image-slice: 100%;
+    border-image-source: none;
+    border-image-width: 1;
+    border-left-color: rgb(76, 80, 162);
+    border-left-style: solid;
+    border-left-width: 2px;
+    border-right-color: rgb(76, 80, 162);
+    border-right-style: solid;
+    border-right-width: 2px;
+    border-top-color: rgb(76, 80, 162);
+    border-top-left-radius: 20px!important;
+    border-top-right-radius: 20px !important;
+    border-top-style: solid;
+    border-top-width: 2px;
+    /* bottom: 75px; */
+    box-shadow: none;
+    box-sizing: border-box;
+    color: rgb(255, 255, 255) !important;
+    cursor: pointer;
+    display: block;
+    font-family: Roboto;
+    font-size: 14px;
+    font-weight: 700;
+    height: 48px;
+    /* left: 896.325px; */
+    line-height: 44px;
+    margin-bottom: 0px;
+    margin-left: -95px;
+    margin-right: 0px;
+    margin-top: 10px;
+    min-width: 190px;
+    outline-color: rgb(255, 255, 255);
+    outline-style: none;
+    outline-width: 0px;
+    padding-bottom: 0px;
+    padding-left: 22px;
+    padding-right: 22px;
+    padding-top: 0px;
+    /* position: absolute; */
+    text-align: center;
+    text-decoration-color: rgb(255, 255, 255);
+    text-decoration-line: none;
+    text-decoration-style: solid;
+    text-size-adjust: 100%;
+    transition-delay: 0s;
+    transition-duration: 0.2s;
+    transition-property: all;
+    transition-timing-function: ease-out;
+    width: 190px;
+    z-index: 9;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+.btnGo, .btnImportant, .btnSharing, .btnDisabled, .btn, .bEditBlock .btnGo, .bEditBlock .btnImportant, .bEditBlock .btnSharing, .bEditBlock .btnDisabled, .bEditBlock .btn, .btnCustomAction, .btnOverriddenAction {
+    margin: 0 2px;
+}
+
+        .par {
+   font-size: 18px;
+  text-indent: -4em;
+  margin-left: 4em;
+}
+.fre-site-logo {
+    display: inline-block;
+    padding: 10px 0;
+    margin-right: 42px;
+    line-height: 40px;
+    vertical-align: middle;
+    
+}
+
+.fre-site-logo > a {
+    a {: unset;
+    display: inline-block;
+    height: 60px;
+};
+    display: inline-block;
+    height: 60px;
+}
+
+.fre-site-logo>a img {
+    max-height: 100%;
+    max-width: 100%;
+}
+.title-text{
+    font: 600 38px/42px 'Raleway',sans-serif;
+    position: relative;
+    padding: 0 0 12px !important;
+    margin: 0 0 20px !important;
+        text-align: center;
+    margin: 0;
+    font-size: 38px;
+    font-weight: 600;
+    color: #4c50a2;
+    line-height: 1.5em;
+}
+.title-text:after{
+    width: 56px;
+    height: 2px;
+    background-color: #4b4fa1;
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    content: '';
+    margin: 0 0 0 -28px;
+    }
+    p{
+    box-sizing:border-box;
+color:rgb(44, 62, 80);
+display:block;
+font-size:16px;
+font-weight:400;
+line-height:24px;
+margin-block-end:10px;
+margin-block-start:0px;
+margin-bottom:10px;
+margin-inline-end:0px;
+margin-inline-start:0px;
+margin-left:0px;
+margin-right:0px;
+margin-top:0px;
+outline-color:rgb(44, 62, 80);
+outline-style:none;
+outline-width:0px;
+padding-bottom:0px;
+padding-left:0px;
+padding-right:0px;
+padding-top:0px;
+text-align:justify;
+text-indent:0px;
+text-size-adjust:100%;
+-webkit-tap-highlight-color:rgba(0, 0, 0, 0);
+    }
+    body .pbBody table.list tr th, body .pbBody table.list tr td,body .bRelatedList .pbBody table.list, body .apexp .pbBody table.list{
+    border:0;
+    background:transparent;
+    }
+    body .bPageBlock, body #bodyCell .bResource .secondaryPalette, body .secondaryPalette.bPageBlock, body .individualPalette .secondaryPalette.bPageBlock, body .bodyDiv .genericTable, body .genericPageBlockTable, body .bodyDiv .bSubBlock, body .bComponentBlock .bPageBlock, body .bMyDashboard .bPageBlock, body.rlHoverFrame .bPageBlock, body.subjectSelectionPopup div.choicesBox, body.lookupTab .secondaryPalette.bPageBlock, body.popupTab .secondaryPalette.bPageBlock, body.UserTagStatsPage .secondaryPalette.bPageBlock{
+    
+     background: #FFF ! important;
+    border: none;
+    width: 100%;
+ }
+ form{
+ width:100%
+ }
+ ul.mom_ul {
+    list-style-image: url(http://ppd2.momrelaunch.com/wp-content/uploads/2018/11/bullet-point.svg);
+    font-size: 16px;
+    color: #000 !important;
+}
+
+ul.mom_ul li {
+    padding: 0 !important;
+    text-align: left !important;
+    color: #000;
+    line-height: 25px;
+    margin: 0 0 10px !important;
+}
+</style>
+<style>
+
+
+body {
+    margin: 0;
+    font-family: "Roboto";
+    font-size: 1.2rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #222;
+    text-align: left;
+    background-color: #fff;
+}
+body {
+    margin: 0;
+    font-family: "Roboto";
+    font-size: 1.4rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #222;
+    text-align: left;
+    overflow-x: hidden;
+    background-color: #fff;
+}
+body {
+    font-size: 16px;
+    line-height: 1.4;
+    font-family: 'Raleway',sans-serif;
+    color: #5d5f5e;
+    background: #f9f9f9;
+}
+body {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #333;
+    background-color: #fff;
+}
+html {
+    font-family: 'Roboto',sans-serif;
+    line-height: 1.15;
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+    -ms-overflow-style: scrollbar;
+    -webkit-tap-highlight-color: transparent;
+}
+html {
+    font-family: 'Roboto',sans-serif;
+    line-height: 1.15;
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+    -ms-overflow-style: scrollbar;
+    -webkit-tap-highlight-color: transparent;
+}
+html, button, input, select, textarea {
+    color: #5d5f5e;
+}
+html {
+    font-size: 10px;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+html {
+    font-family: sans-serif;
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+}
+</style>
+
+    <body style="background-color:#00000">
+        <br/><br/><br/>
+     <h1 style="font-size: 27px;font-weight: 500;color: #4b4fa1;">
+     <!--<div class="header">
+         <center><img src="{!$Resource.MR_Logo_Test}" type="/image/MR_Logo_Test" width="10%"/></center>
+    </div>-->  
+       <center> Thank you {! name} for registering the Career Assessment !! </center>
+    </h1>
+    
+                    
+        <br/><br/>
+        <h4>
+            
+                <font color="black" size="5">   <center>You are registered for &nbsp;
+                
+                    <apex:outputText value="{0,date,EEE MMM d, yyyy} ">
+                        <apex:param value="{!ConfirmedAssessmentDate}" /> 
+
+                    </apex:outputText>
+                  </center> 
+             </font>
+           </h4>
+           <br></br>
+<div class="container"><div class="row">
+<div class="col-md-12">
+           <p>Please note that this will be a virtual (Webcam) session which may be broadcast on social media. To make the most of this session, please be aware of the following details:
+</p><ul class="mom_ul"> 
+<li><strong>When        :</strong> 9:30 a.m. to 11:30 a.m. PST.</li>
+<li><strong>Join        :</strong> Join the session 5 minutes prior to the start time.</li>
+<li><strong>Protocol    :</strong> Please mute the line unless you would like to speak or ask questions.Use the chat function or raise your hand using the hand icon if you have any questions while others are talking.</li>
+</ul>
+<p>                                                    
+           Here is the Zoom link
+	<a href="https://zoom.us/j/102499293" style="
+    text-decoration: underline;
+    color: #4c50a2;">
+    https://zoom.us/j/102499293</a>.
+    <br></br>
+</p>
+    <p color= '#4c50a2'>
+Meeting ID: 102 499 293</p>
+<p color= '#4c50a2'>
+Passcode: Career</p>
+
+<br>Dial from your location</br>
+        <ul class="mom_ul" color = '#4c50a2'><li> +1 669 900 9128 US (San Jose)</li>
+        <li>+1 346 248 7799 US (Houston)</li>
+        <li>+1 312 626 6799 US (Chicago)</li>
+        <li>+1 646 558 8656 US (New York)</li>
+        <li>+1 253 215 8782 US</li>
+        <li>+1 301 715 8592 US</li>
+        </ul>
+<br></br>
+
+<p color = '#4c50a2'>We’ll send reminder emails/SMS before the event.
+</p><br></br>
+<p color = '#4c50a2'>We are looking forward to meeting you!
+ </p>
+</div>
+</div>
+</div>
+
+           
+           
+         
+                
+         <!--   <apex:outputText value="THE CONTACT NAME IS : {!Contact.FirstName}" />  -->
+     
+          
+          <br/> 
+          <br/>
+          <br/>
+          <br/>
+    </body>
+    </html>    
+      
+    
+</apex:page>

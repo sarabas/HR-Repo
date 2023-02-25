@@ -1,0 +1,28 @@
+<apex:page standardController="Contact" sidebar="false" tabStyle="Contact" extensions="certificateAttachmentController" id="ca">   
+<script>   
+    function validate() {                
+        var certFileName =  document.getElementById('{!$Component.frm1.pb.cert.certId.certFile}').value;
+        if (certFileName == ''){
+            alert('Please select a Certificate file to upload.');       
+       } else {
+            callSave();
+        }      
+    }                    
+    </script>  
+    <apex:form id="frm1">     
+                <apex:actionFunction name="callSave" action="{!save}"/>
+
+        <apex:pageBlock title="Upload Certificates" id="pb">     
+            <apex:pageBlockSection columns="1" id="cert">                                        
+                   <apex:pageBlockSectionItem id="certId">
+                        <apex:outputLabel value="Training Certificate" style="text-align:right;"/>                       
+                        <apex:inputFile value="{!attName.body}" filename="{!attName.name}" id="certFile"/>                        
+                    </apex:pageBlockSectionItem>  
+            </apex:pageBlockSection> 
+            
+             <apex:outputLabel value="Error in the files" id="error" style="display:none;" />             
+            <apex:commandButton value="Save"  onclick="validate();return false;" />
+            <apex:commandButton value="Close" action="{!close}"/>        
+        </apex:pageBlock>           
+    </apex:form>     
+</apex:page>

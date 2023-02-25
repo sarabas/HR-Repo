@@ -1,0 +1,432 @@
+<apex:page standardController="Contact" extensions="CARController" showHeader="false" sidebar="false">
+    <head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+    <script>
+    var SelectConId1='';
+    var isDateSelected='';
+    
+    
+    function getSelectedRecord(dateValue, currentCheckBox, assessmentId){
+        //console.log(currentCheckBox);
+        var nodes = document.getElementsByTagName("input"), x;
+        for (x = 0; x < nodes.length; x++) {
+            if (nodes[x].name.indexOf('selAsstDateHiddenElement') > -1) {
+                console.log(nodes[x]);
+                nodes[x].value = dateValue;
+                isDateSelected = true;
+                //break;
+            }
+            if (nodes[x].name.indexOf('selAsstId') > -1) {
+                console.log(nodes[x]);
+                nodes[x].value = assessmentId;
+                //break;
+            }
+            
+        }
+        var checkboxes = document.getElementsByTagName("input"), y;
+        for (y = 0; y < nodes.length; y++) {
+            if (nodes[y].getAttribute("type") == 'checkbox') {
+                ////console.log(nodes[y]  + "    " + currentCheckBox);
+                if( nodes[y] != currentCheckBox){
+                    nodes[y].checked = false;
+                }
+            }
+        }
+    }
+    
+    
+    </script>
+    <style type="text/css">
+    
+        .myFormStyle {
+        <!--     background-color: #9c80c2; -->
+        <!--background-color: #4a3ea3;-->
+         background-color:#fff;
+        }
+        .image {
+        <!--     background-color: #9c80c2; -->
+        background-color : #00000;
+         margin-top:500px;
+        }
+        .bPageBlock .pbTitle {
+        width: 100%;    
+        text-align: center;
+        font-size: 100%;
+        }
+         .pbheader h3 {
+        white-space: pre;
+        }
+        .background_img{
+        width:100%;
+        }
+.headerRow{background-color:#4c50a2;
+line-height: 25px;
+color:white;
+text-align: center;}
+             
+        .hideTableHeader {
+            display: none;
+        }
+        .content_text p{
+        margin-bottom : 10px;
+        }
+        
+    
+    .submit_button {
+    background-color: rgb(76, 80, 162) ! important;
+    background-image: none !important;
+    initial.fre-btn, .fre-btn-disable, .fre-payment-list>li>.btn: ;
+    background-origin: padding-box;
+    background-position-x: 0% !important;
+    background-position-y: 0% !important;
+    background-repeat-x: ;
+    background-repeat-y: ;
+    background-size: auto !important;
+    border-bottom-color: rgb(76, 80, 162) !important;
+    border-bottom-left-radius: 20px !important;
+    border-bottom-right-radius: 20px !important;
+    border-bottom-style: solid !important;
+    border-bottom-width: 2px !important;
+    border-image-outset: 0px !important;
+    border-image-repeat: stretch !important;
+    border-image-slice: 100%;
+    border-image-source: none;
+    border-image-width: 1;
+    border-left-color: rgb(76, 80, 162);
+    border-left-style: solid;
+    border-left-width: 2px;
+    border-right-color: rgb(76, 80, 162);
+    border-right-style: solid;
+    border-right-width: 2px;
+    border-top-color: rgb(76, 80, 162);
+    border-top-left-radius: 20px!important;
+    border-top-right-radius: 20px !important;
+    border-top-style: solid;
+    border-top-width: 2px;
+    /* bottom: 75px; */
+    box-shadow: none;
+    box-sizing: border-box;
+    color: rgb(255, 255, 255) !important;
+    cursor: pointer;
+    display: block;
+    font-family: Roboto;
+    font-size: 14px;
+    font-weight: 700;
+    height: 48px;
+    /* left: 896.325px; */
+    line-height: 44px;
+    margin-bottom: 0px;
+    margin-left: -95px;
+    margin-right: 0px;
+    margin-top: 10px;
+    min-width: 190px;
+    outline-color: rgb(255, 255, 255);
+    outline-style: none;
+    outline-width: 0px;
+    padding-bottom: 0px;
+    padding-left: 22px;
+    padding-right: 22px;
+    padding-top: 0px;
+    /* position: absolute; */
+    text-align: center;
+    text-decoration-color: rgb(255, 255, 255);
+    text-decoration-line: none;
+    text-decoration-style: solid;
+    text-size-adjust: 100%;
+    transition-delay: 0s;
+    transition-duration: 0.2s;
+    transition-property: all;
+    transition-timing-function: ease-out;
+    width: 190px;
+    z-index: 9;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+.btnGo, .btnImportant, .btnSharing, .btnDisabled, .btn, .bEditBlock .btnGo, .bEditBlock .btnImportant, .bEditBlock .btnSharing, .bEditBlock .btnDisabled, .bEditBlock .btn, .btnCustomAction, .btnOverriddenAction {
+    margin: 0 2px;
+}
+
+        .par {
+   font-size: 18px;
+  text-indent: -4em;
+  margin-left: 4em;
+}
+.fre-site-logo {
+    display: inline-block;
+    padding: 10px 0;
+    margin-right: 42px;
+    line-height: 40px;
+    vertical-align: middle;
+   
+}
+
+.fre-site-logo > a {
+    a {: unset;
+    display: inline-block;
+    height: 60px;
+};
+    display: inline-block;
+    height: 60px;
+}
+
+.fre-site-logo>a img {
+    max-height: 100%;
+    max-width: 100%;
+}
+.title-text{
+    font: 600 38px/42px 'Raleway',sans-serif;
+    position: relative;
+    padding: 0 0 12px !important;
+    margin: 0 0 20px !important;
+        text-align: center;
+    margin: 0;
+    font-size: 38px;
+    font-weight: 600;
+    color: #4c50a2;
+    line-height: 1.5em;
+}
+.title-text:after{
+    width: 56px;
+    height: 2px;
+    background-color: #4b4fa1;
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    content: '';
+    margin: 0 0 0 -28px;
+    }
+    p{
+    box-sizing:border-box;
+color:rgb(44, 62, 80);
+display:block;
+font-size:16px;
+font-weight:400;
+line-height:24px;
+margin-block-end:10px;
+margin-block-start:0px;
+margin-bottom:10px;
+margin-inline-end:0px;
+margin-inline-start:0px;
+margin-left:0px;
+margin-right:0px;
+margin-top:0px;
+outline-color:rgb(44, 62, 80);
+outline-style:none;
+outline-width:0px;
+padding-bottom:0px;
+padding-left:0px;
+padding-right:0px;
+padding-top:0px;
+text-align:justify;
+text-indent:0px;
+text-size-adjust:100%;
+-webkit-tap-highlight-color:rgba(0, 0, 0, 0);
+    }
+    body .pbBody table.list tr th, body .pbBody table.list tr td,body .bRelatedList .pbBody table.list, body .apexp .pbBody table.list{
+    border:0;
+    background:transparent;
+    }
+    body .bPageBlock, body #bodyCell .bResource .secondaryPalette, body .secondaryPalette.bPageBlock, body .individualPalette .secondaryPalette.bPageBlock, body .bodyDiv .genericTable, body .genericPageBlockTable, body .bodyDiv .bSubBlock, body .bComponentBlock .bPageBlock, body .bMyDashboard .bPageBlock, body.rlHoverFrame .bPageBlock, body.subjectSelectionPopup div.choicesBox, body.lookupTab .secondaryPalette.bPageBlock, body.popupTab .secondaryPalette.bPageBlock, body.UserTagStatsPage .secondaryPalette.bPageBlock{
+    
+     background: #FFF ! important;
+    border: none;
+    width: 100%;
+ }
+ form{
+ width:100%
+ }
+ ul.mom_ul {
+    list-style-image: url(http://ppd2.momrelaunch.com/wp-content/uploads/2018/11/bullet-point.svg);
+    font-size: 16px;
+    color: #000 !important;
+}
+
+ul.mom_ul li {
+    padding: 0 !important;
+    text-align: left !important;
+    color: #000;
+    line-height: 25px;
+    margin: 0 0 10px !important;
+}
+</style>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</head>    <!--<div>
+ <h2><font size="8px" color="#4c50a2"><center>Career Assessment {!currentYear}</center></font></h2>
+ <div style="float:left" >
+   <img
+            src="{!$Resource.MR_Logo_Test}" 
+            alt="Inside_B_D"
+            style="margin-top:8px;"/>
+ </div>
+</div>-->
+<div class="container"><div class="row">
+<div class="col-md-12"><div class="fre-site-logo fre-image">
+                <a href="#">
+                    <img class=" ls-is-cached lazyloaded" alt="Mom Relaunch" src="https://www.momrelaunch.com/wp-content/uploads/2017/10/MR_logo-300x188-1.png" />                </a>
+                    </div>
+                   </div>
+ </div>
+ </div>
+ <div class="container-fluid">
+<div class="row">
+ 
+    <div class="background_img">
+                    <img class=" lazyloaded" src="https://cdn.shortpixel.ai/client/to_webp,q_glossy,ret_img/https://www.momrelaunch.com/wp-content/uploads/2019/11/home-banner.jpg" data-src="https://cdn.shortpixel.ai/client/q_glossy,ret_img/https://www.momrelaunch.com/wp-content/uploads/2019/01/about-img-1.png" Style="width: 100%;"/>
+                   </div> </div>
+    
+</div>
+<div class="container">
+<div class="row">
+    <div class="col-md-12">
+                   <div class="text-center"><h2 class="title-text text-center purple ">Career Assessment {!currentYear} </h2></div>
+                    </div>
+    <apex:form id="assessmentForm" >
+             
+        <!--<font size="4" color="#4c50a2"><center>Welcome {!candidateName}!</center></font>-->
+        <apex:pageBlock >
+        <p>
+
+Hello {!candidateName}!
+    </p><br></br>
+
+<!--
+<br/>
+<br>We are glad that you have reached out to us and are happy to help you with your next steps in getting back into the workforce.</br>
+
+
+We meet in small groups to discuss the following:<br /></p>
+<ul class="mom_ul"><li> To learn about you</li>
+<ul><li>Your goals and objectives</li>
+<li>Your past work or volunteer experience</li>
+<li>Your technical and non-technical skills</li>
+<li>What you want to do going forward</li></ul>
+<li>How did you learn about Mom Relaunch</li>
+<li> <a href="https://www.momrelaunch.com/moms/process/" style="
+    text-decoration: underline;
+    color: #4c50a2;
+">Brief the 4-step process of Mom Relaunch</a></li>
+<li>Give you a career path plan and action items for your next step.</li></ul>
+<p>This will be a virtual (Webcam) session and not in-person.
+To make the most of this session, please note the following:</p>
+<ul class="mom_ul"> <li>The Career Assessment session is from 9:30 a.m to 11:30 a.m PST.</li><li>Join the session 5 minutes prior to the start time.</li>
+<li>Keep your line muted unless you would like to speak or ask questions.</li><li>Use the chat function or raise your hand using the hand icon if you have any questions while others are talking.</li>
+<li>This is an informal group session but come prepared to share about your past experience and what you are looking for.</li></ul>
+<p>The session will be conducted via Zoom Meeting.
+Join from your computer, tablet or smartphone: <a href="https://zoom.us/j/102499293" style="
+    text-decoration: underline;
+    color: #4c50a2;">
+    https://zoom.us/j/102499293</a>.
+    <br></br>
+
+    <p>
+Meeting ID: 102 499 293.</p>
+
+
+<br>Dial from your location</br>
+        <ul class="mom_ul"><li> +1 669 900 9128 US (San Jose)</li>
+        <li>+1 346 248 7799 US (Houston)</li>
+        <li>+1 312 626 6799 US (Chicago)</li>
+        <li>+1 646 558 8656 US (New York)</li>
+        <li>+1 253 215 8782 US</li>
+        <li>+1 301 715 8592 US</li>
+        </ul>
+<br></br>
+Find your local number: <a href="https://zoom.us/u/acxdQCvEs3" style="
+    text-decoration: underline;
+    color: #4c50a2;" target="_blank">https://zoom.us/u/acxdQCvEs3</a>.
+
+<br>
+New to Zoom Meeting? Get the app now and be ready when your first meeting starts.
+If you have any questions or concerns, we will be happy to address them. Our Career Assessment session fills up quickly. In case you are not able to join, please let us know as soon as possible.</br></p>
+           <br/>
+           <br/> -->
+    
+<div class="content_text">  
+<p>
+Our Career Assessment is an opportunity for us to get to know you and tell you about our program</p><br/>
+<p>
+Returning from a career break or starting a career in IT can be challenging and intimidating. At Mom Relaunch, we know, because we’ve been there too. In the Career Assessment session, we give you a chance to talk about yourself and what brings you here. Tell us more about your personal and professional goals and a vision for what you hope to achieve.
+</p><br/>
+<p>
+To help you prepare for Career Assessment, we suggest that you read the chapter “Core Competencies” in the book <a href = "https://careerinterrupted.net/book/" target = "_blank" style = "color:#4c50a2">Career Interrupted</a>, written by our founder,  <a href = "https://www.reenagupta.com/" target = "_blank" style = "color:#4c50a2">Reena Gupta</a>. The exercises at the end of the chapter will help you understand your strengths. 
+</p><br/>
+
+<p>Register for Career Assessment</p>
+<p>Select the date convenient to you and click on Submit
+    </p>
+
+
+        </div>  
+                <apex:dataTable style="width:30%;padding: 10px;margin: 10px auto;" value="{!Assessments}"  title="Career Assessment Available Dates" var="assessment" align="center" id="assessmentTable" cellPadding="4" border="1"  bgcolor="#fff">
+              <apex:column width="6%" headerClass="headerRow row2" >
+              <apex:facet name="header">Select</apex:facet>
+
+            <apex:inputCheckbox id="refreshCheckBox" rendered="{! assessment.id != 'a2n3u000001AlPLAA0'}" onchange="getSelectedRecord('{!assessment.Career_Assessment_Date__c}',this,'{! assessment.id}')" >
+                    </apex:inputCheckbox> 
+                    </apex:column> 
+                    
+                
+           <!-- <apex:column headerValue="Assessment Dates" width="35%">-->
+           <apex:column width="45%" headerClass="headerRow row2">
+           <apex:facet name="header">Assessment Dates</apex:facet>
+                    <apex:outputText value="{0,date,EEE MMM d, yyyy} " styleClass="TableTitle">
+                        <apex:param value="{!assessment.Career_Assessment_Date__c}" /> 
+                    </apex:outputText>
+                 
+                    
+                </apex:column>
+                <!--
+                <apex:column width="45%" headerClass="headerRow">
+                <apex:facet name="header">Attendees</apex:facet>
+                    <apex:pageBlockTable value="{!assessment.Candidates__r}" var="candidate" cellpadding="1%" cellspacing="1%" headerClass="hideTableHeader" title="test">
+                        <apex:column width="55%">
+                        
+                            <apex:outputText value="{!candidate.Name}"></apex:outputText> 
+                            
+                        </apex:column>
+                        </apex:pageBlockTable>
+                </apex:column> 
+                -->
+        </apex:dataTable>
+        
+            
+            <!--<apex:pageBlockTable value="{!Assessments}" var="assessment" id="assessmentTable" StyleClass="TableTitle">
+                <apex:column width="6%" Style="color:#9c80c2" headerValue="Select" headerClass="TableTitle"> 
+                    <apex:inputCheckbox id="refreshCheckBox" onchange="getSelectedRecord('{!assessment.Career_Assessment_Date__c}',this,'{! assessment.id}')" >
+                    </apex:inputCheckbox> 
+                </apex:column>
+                
+                <apex:column headerValue="Assessment Dates" width="35%">
+                    <apex:outputText value="{0,date,EEE MMM d, yyyy} ">
+                        <apex:param value="{!assessment.Career_Assessment_Date__c}" /> 
+                    </apex:outputText>
+                 
+                    
+                </apex:column>
+                
+                <apex:column headerValue="Attendees">
+                    <apex:pageBlockTable value="{!assessment.Candidates__r}" var="candidate" cellpadding="1%" cellspacing="1%" title="test">
+                        <apex:column width="30%">
+                            <li><apex:outputText value="{!candidate.Name}" /> 
+                            </li>
+                        </apex:column>
+                
+                    
+                    .
+                
+            </apex:pageBlockTable>-->
+            <apex:inputHidden id="selAsstDateHiddenElement" value="{!selectedAssessmentDate}"/>
+            <apex:inputHidden id="selAsstId" value="{!selectedAssessmentId}"/>
+            
+            <center>
+           
+                    <apex:commandButton styleClass="submit_button" action="{!saveRecord}" onclick="return confirm('Do you want to proceed ?');" value="Submit" />
+                
+            </center>
+        </apex:pageBlock>
+        
+    </apex:form>
+    </div>
+        </div>
+</apex:page>

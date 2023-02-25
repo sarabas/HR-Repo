@@ -1,0 +1,5 @@
+<apex:page standardController="Contact">    
+     <flow:interview name="Mom_Relaunch_Send_Paperwork" finishLocation="/{!Contact.Id}">
+        <apex:param name="ContactId" value="{!Contact.Id}" />
+    </flow:interview>
+</apex:page>

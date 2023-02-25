@@ -1,0 +1,15 @@
+div .CLASSIC {
+    width: 66rem;
+    
+}
+div .LARGE {
+    width: 40rem;
+    
+}
+div .SMALL {
+    width: 15rem;
+    
+}
+.toastMessage.forceActionsText{
+    white-space : pre-line !important;
+}

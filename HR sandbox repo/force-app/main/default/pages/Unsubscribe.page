@@ -1,0 +1,5 @@
+<apex:page controller="UnsubscribeController" sidebar="false" showHeader="false" action="{! handleUnsubscribe }" >
+
+	<a href="http://www.mailchimp.com">MailChimp</a>: Powerful email marketing done right
+
+</apex:page>

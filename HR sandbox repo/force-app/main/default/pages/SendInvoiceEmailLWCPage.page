@@ -1,0 +1,20 @@
+<apex:page showHeader="true" sidebar="true">
+    <apex:includeLightning />    
+    <div id="LightningComponentid" />    
+    <script>
+       
+
+         var accountId = "{!$CurrentPage.parameters.id}";
+         console.log('Got '+ accountId);
+    $Lightning.use("c:SendInvoiceEmailApp", function() {
+        $Lightning.createComponent("c:sendEmailLWC",
+          {"recordId":accountId
+          },
+          "LightningComponentid",
+          function(cmp) {
+             console.log('LWC Component added in VF page');
+          });
+    });
+    
+    </script>
+</apex:page>
