@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ArdiraSurvey__Number_of_Attempts_Allowed</fullName>
+    <active>true</active>
+    <description>Number of Attempts Allowed cannot be negative.</description>
+    <errorConditionFormula>ArdiraSurvey__Number_of_Attempts_Allowed__c &lt;0</errorConditionFormula>
+    <errorDisplayField>ArdiraSurvey__Number_of_Attempts_Allowed__c</errorDisplayField>
+    <errorMessage>Number of Attempts Allowed cannot be negative.</errorMessage>
+</ValidationRule>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ArdiraSurvey__Disallow_Negative_Values_For_Time_To_Res</fullName>
+    <active>true</active>
+    <description>Prevent users from entering a negative number for allowed time to respond days.</description>
+    <errorConditionFormula>ArdiraSurvey__CT_Allowed_Time_to_Respond_Days__c &lt; 0</errorConditionFormula>
+    <errorDisplayField>ArdiraSurvey__CT_Allowed_Time_to_Respond_Days__c</errorDisplayField>
+    <errorMessage>Negative values are not allowed for this field.</errorMessage>
+</ValidationRule>

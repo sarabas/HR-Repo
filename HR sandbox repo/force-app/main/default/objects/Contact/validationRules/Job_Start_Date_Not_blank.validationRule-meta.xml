@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Job_Start_Date_Not_blank</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND (ISBLANK(Job_Start_Date__c),
+              ISPICKVAL(AVTRRT__Candidate_Status__c, &quot;Found Job Directly&quot;) || ISPICKVAL(AVTRRT__Candidate_Status__c,&quot;Hired By Client&quot;) || ISPICKVAL(AVTRRT__Candidate_Status__c,&quot;Paid Internship&quot;) || ISPICKVAL(AVTRRT__Candidate_Status__c,&quot;Non-paid Client Project&quot;) ||  Hired_for_Part_Time__c  = TRUE)</errorConditionFormula>
+    <errorDisplayField>Job_Start_Date__c</errorDisplayField>
+    <errorMessage>Please enter Job Start Date.</errorMessage>
+</ValidationRule>

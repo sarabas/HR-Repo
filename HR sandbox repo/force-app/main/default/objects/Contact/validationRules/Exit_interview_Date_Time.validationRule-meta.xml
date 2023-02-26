@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Exit_interview_Date_Time</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(( WEEKDAY( DATEVALUE( Exit_Interview_Date__c))  &lt;&gt;  3)
+ || 
+(HOUR(TIMEVALUE( Exit_Interview_Date__c ))-7)  &lt;&gt; 9)
+ || 
+(MINUTE( TIMEVALUE(Exit_Interview_Date__c )) &gt; 20)</errorConditionFormula>
+    <errorMessage>Exit Interview Day should be Tuesday and time should be 9 to 9:30AM PST only</errorMessage>
+</ValidationRule>

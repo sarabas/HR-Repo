@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AVAB__Entry_cannot_be_Edited</fullName>
+    <active>true</active>
+    <errorConditionFormula>PRIORVALUE(AVAB__Bank_Reconciated_Status__c) ==&apos;close&apos; || PRIORVALUE(AVAB__Bank_Reconciated_Status__c) ==&apos;Close&apos;</errorConditionFormula>
+    <errorDisplayField>AVAB__Bank_Reconciated_Status__c</errorDisplayField>
+    <errorMessage>Entry already reconciled. You cannot edit the Record</errorMessage>
+</ValidationRule>

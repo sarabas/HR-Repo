@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Opportunity_stage_validation_rule</fullName>
+    <active>true</active>
+    <description>A user must have accounting login to change the Opportunity Stage to &quot;Closed-won&quot;</description>
+    <errorConditionFormula>AND(  $User.Id  &lt;&gt; &quot;accounting@momrelaunch.com&quot;, 
+    ISPICKVAL(StageName, &quot;Closed Won&quot;))</errorConditionFormula>
+    <errorMessage>You have to log in as an Accounting user to change the opportunity stage to &quot;Closed-won&quot;.</errorMessage>
+</ValidationRule>

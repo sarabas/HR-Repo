@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ArdiraSurvey__Quiz_Rule_for_Passing_Score</fullName>
+    <active>true</active>
+    <description>Synchronous scoring should be on if there is passing score.</description>
+    <errorConditionFormula>NOT(ISBLANK(ArdiraSurvey__Passing_Score__c )  ||  ISNULL(ArdiraSurvey__Passing_Score__c  ) ) &amp;&amp; ( ArdiraSurvey__Execute_Synchronous_Scoring__c = FALSE || ArdiraSurvey__Enable_Scoring_Survey_Responses__c = FALSE )</errorConditionFormula>
+    <errorMessage>If a passing score is configured, when a quiz survey is submitted, the system displays quiz results. To enable this functionality, you will have to first enable ‘Execute Synchronous Scoring’ in Survey Settings.</errorMessage>
+</ValidationRule>

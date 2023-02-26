@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AVTRRT__Closed_Validation</fullName>
+    <active>false</active>
+    <errorConditionFormula>ISPICKVAL(AVTRRT__Closed_Qualifiers__c, &quot;&quot;)</errorConditionFormula>
+    <errorDisplayField>AVTRRT__Closed_Qualifiers__c</errorDisplayField>
+    <errorMessage>Closed Qualifiers have to be selected from the Job is closed.</errorMessage>
+</ValidationRule>

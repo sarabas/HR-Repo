@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PEO_Percent_Check</fullName>
+    <active>true</active>
+    <description>PEO Percent cannot exceed 99%</description>
+    <errorConditionFormula>AND( Hrs_per_week__c &gt;0, PEO_Percent__c &gt;0.99)</errorConditionFormula>
+    <errorDisplayField>Candidate__c</errorDisplayField>
+    <errorMessage>PEO Percent cannot exceed 99%</errorMessage>
+</ValidationRule>

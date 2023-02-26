@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Ready_to_market_field_check</fullName>
+    <active>true</active>
+    <description>Please fill the Candidate Marketing Summary field before checking the Ready to market field.</description>
+    <errorConditionFormula>Ready_to_Market__c  = TRUE  &amp;&amp;  (  LEN(Candidate_Marketing_Summary__c) = 0)</errorConditionFormula>
+    <errorMessage>Candidate Marketing Summary Field cannot be blank and Resume should be uploaded.</errorMessage>
+</ValidationRule>

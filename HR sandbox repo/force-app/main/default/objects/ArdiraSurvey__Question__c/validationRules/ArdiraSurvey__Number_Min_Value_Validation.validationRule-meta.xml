@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ArdiraSurvey__Number_Min_Value_Validation</fullName>
+    <active>true</active>
+    <errorConditionFormula>ArdiraSurvey__Number_Min_Value_Number__c &gt;  ArdiraSurvey__Number_Max_Value_Number__c</errorConditionFormula>
+    <errorDisplayField>ArdiraSurvey__Number_Min_Value_Number__c</errorDisplayField>
+    <errorMessage>This value should be less than max value configured for this question.</errorMessage>
+</ValidationRule>

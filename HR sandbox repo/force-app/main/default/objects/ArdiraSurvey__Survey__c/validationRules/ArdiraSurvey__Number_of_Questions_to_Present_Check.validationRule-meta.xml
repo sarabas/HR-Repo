@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ArdiraSurvey__Number_of_Questions_to_Present_Check</fullName>
+    <active>true</active>
+    <description>Number of Questions to Present cannot be negative.</description>
+    <errorConditionFormula>ArdiraSurvey__Number_of_Questions_to_Present__c &lt; 0</errorConditionFormula>
+    <errorDisplayField>ArdiraSurvey__Number_of_Questions_to_Present__c</errorDisplayField>
+    <errorMessage>Number of Questions to Present cannot be negative.</errorMessage>
+</ValidationRule>

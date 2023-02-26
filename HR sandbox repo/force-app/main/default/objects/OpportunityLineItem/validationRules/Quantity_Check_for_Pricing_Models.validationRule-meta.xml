@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Quantity_Check_for_Pricing_Models</fullName>
+    <active>true</active>
+    <description>Verify that Quantity for the Staffing, Placement and Income Sharing Model is always 1 at line item level</description>
+    <errorConditionFormula>AND( OR(Hrs_per_week__c &gt;0, Placement_Fee__c &gt;0,  Income_Percent__c &gt;0), Quantity &gt;1)</errorConditionFormula>
+    <errorDisplayField>Quantity</errorDisplayField>
+    <errorMessage>Quantity for Staffing, Placement or Income Sharing Model has to be 1.</errorMessage>
+</ValidationRule>

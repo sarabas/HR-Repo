@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Product_check_for_other_products</fullName>
+    <active>true</active>
+    <description>To validate that no pricing model fields have values when adding a product other than pricing model(Staffing, Placement and Income Sharing).</description>
+    <errorConditionFormula>AND( 
+ Product2.Name &lt;&gt;  $CustomMetadata.Opportunity_Prod_Setting__mdt.Income_sharing.Prod_Value__c ,Product2.Name &lt;&gt;  $CustomMetadata.Opportunity_Prod_Setting__mdt.Placement_contract.Prod_Value__c ,Product2.Name &lt;&gt;  $CustomMetadata.Opportunity_Prod_Setting__mdt.Placement_permanent.Prod_Value__c ,Product2.Name &lt;&gt; $CustomMetadata.Opportunity_Prod_Setting__mdt.Staffing_full_time.Prod_Value__c ,Product2.Name &lt;&gt;  $CustomMetadata.Opportunity_Prod_Setting__mdt.Staffing_part_time.Prod_Value__c ,
+OR( 
+Hrs_per_week__c &gt; 0, 
+Bill_Rate__c &gt; 0, 
+Pay_rate__c &gt;0, 
+Weeks_worked__c &gt;0,
+Placement_Fee__c &gt; 0,
+Income_Percent__c&gt;0,
+Annual_Salary__c &gt;0,
+ Commission__c &gt;0,
+ PEO_Percent__c &gt;0 
+))</errorConditionFormula>
+    <errorDisplayField>Bill_Rate__c</errorDisplayField>
+    <errorMessage>Given fields need to be blank:
+
+Annual Salary, Commission Percent, Bill Rate, Pay rate, Hrs per week, Weeks worked, PEO percent, Placement Fee and Income Percent.</errorMessage>
+</ValidationRule>

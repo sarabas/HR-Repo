@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Candidate_Inactive_Status_Reason</fullName>
+    <active>true</active>
+    <description>Recruiter should mention the reason for inactive status of the candidate in &quot;Notes and Comment&quot; section.</description>
+    <errorConditionFormula>IF(
+AND(
+ISPICKVAL(AVTRRT__Candidate_Status__c, &apos;Inactive&apos;), ISBLANK(  AVTRRT__Notes_and_Comments__c )), True, False)</errorConditionFormula>
+    <errorMessage>Please provide a reason for making the candidate inactive in the Notes and Comments field.</errorMessage>
+</ValidationRule>

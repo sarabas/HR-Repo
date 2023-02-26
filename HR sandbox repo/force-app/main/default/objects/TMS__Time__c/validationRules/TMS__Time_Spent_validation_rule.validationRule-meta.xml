@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>TMS__Time_Spent_validation_rule</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(ISPICKVAL( TMS__Task__r.TMS__Task_data_type__c, &apos;Boolean&apos;), 
+(TMS__Time_Spent__c   &lt;&gt; 0 &amp;&amp; TMS__Time_Spent__c   &lt;&gt; 1))</errorConditionFormula>
+    <errorMessage>The values can only be 0 and 1.</errorMessage>
+</ValidationRule>

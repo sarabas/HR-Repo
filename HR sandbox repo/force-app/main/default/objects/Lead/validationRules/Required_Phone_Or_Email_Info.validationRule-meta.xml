@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Required_Phone_Or_Email_Info</fullName>
+    <active>false</active>
+    <description>This validation rule will not let  the user to save the record</description>
+    <errorConditionFormula>AND( ISBLANK( Email ) , ISBLANK( Phone))</errorConditionFormula>
+    <errorMessage>Please Fill the Email address or the Phone number to future Contact.</errorMessage>
+</ValidationRule>

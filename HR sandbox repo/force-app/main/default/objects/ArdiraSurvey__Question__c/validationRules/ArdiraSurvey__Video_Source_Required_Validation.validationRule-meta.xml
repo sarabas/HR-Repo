@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ArdiraSurvey__Video_Source_Required_Validation</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND (
+ISPICKVAL(ArdiraSurvey__Type__c  , &quot;Video&quot;) ,
+ISPICKVAL( ArdiraSurvey__Video_Source__c, &quot;&quot; )
+)</errorConditionFormula>
+    <errorDisplayField>ArdiraSurvey__Video_Source__c</errorDisplayField>
+    <errorMessage>Video Source is required.</errorMessage>
+</ValidationRule>

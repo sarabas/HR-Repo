@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Commission_Percent_Check</fullName>
+    <active>true</active>
+    <description>Verify that commission percent cannot exceed 99%</description>
+    <errorConditionFormula>AND(OR( Hrs_per_week__c &gt;0 , Placement_Fee__c &gt; 0 ), Commission_Percent__c &gt; 0.99)</errorConditionFormula>
+    <errorDisplayField>Candidate__c</errorDisplayField>
+    <errorMessage>Commission percent cannot exceed 99%</errorMessage>
+</ValidationRule>

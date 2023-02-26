@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Placement_Fee_Check</fullName>
+    <active>true</active>
+    <description>Verify that placement fee percent is less than 100</description>
+    <errorConditionFormula>AND( 
+OR(Product2.Name =  $CustomMetadata.Opportunity_Prod_Setting__mdt.Placement_contract.Prod_Value__c , Product2.Name = $CustomMetadata.Opportunity_Prod_Setting__mdt.Placement_permanent.Prod_Value__c), 
+ Placement_Fee__c &gt; 0.99)</errorConditionFormula>
+    <errorDisplayField>Candidate__c</errorDisplayField>
+    <errorMessage>Placement fee cannot exceed 99%</errorMessage>
+</ValidationRule>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AVAB__Post_Validation_Rules</fullName>
+    <active>true</active>
+    <description>Required fields on Post: Date, Customer</description>
+    <errorConditionFormula>AND( 
+ISPICKVAL(AVAB__Status__c,&apos;Post&apos;),
+
+OR(
+ ISBLANK(AVAB__Date__c),
+ ISBLANK( AVAB__Account__c )
+ 
+)
+)</errorConditionFormula>
+    <errorMessage>Required fields on Post: Date, Customer</errorMessage>
+</ValidationRule>

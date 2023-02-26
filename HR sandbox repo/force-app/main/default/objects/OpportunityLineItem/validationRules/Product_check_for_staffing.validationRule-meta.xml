@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Product_check_for_staffing</fullName>
+    <active>true</active>
+    <description>To enter data in input fields based on the pricing model selected</description>
+    <errorConditionFormula>AND(
+OR(Product2.Name =  $CustomMetadata.Opportunity_Prod_Setting__mdt.Staffing_full_time.Prod_Value__c ,Product2.Name =  $CustomMetadata.Opportunity_Prod_Setting__mdt.Staffing_part_time.Prod_Value__c ), 
+OR(
+NOT(ISBLANK(Placement_Fee__c)),
+NOT(ISBLANK(Income_Percent__c)),
+ISBLANK( Bill_Rate__c ), 
+ISBLANK( Pay_rate__c ), 
+ISBLANK( Hrs_per_week__c ), 
+ISBLANK( Weeks_worked__c ),ISBLANK(PEO_Percent__c),ISBLANK(Commission_Percent__c ), 
+ Bill_Rate__c &lt; 0,
+ Pay_rate__c  &lt;0,
+  Hrs_per_week__c  &lt; 0,
+  Weeks_worked__c  &lt; 0, PEO_Percent__c &lt; 0, Commission_Percent__c &lt; 0
+))</errorConditionFormula>
+    <errorDisplayField>Candidate__c</errorDisplayField>
+    <errorMessage>Please fill the fields relevant to Staffing model - Bill rate, Pay rate, Hrs/week, Weeks worked, PEO Percent and Commission Percent. Values cannot be negative.
+
+Given fields need to be blank - Placement Fee, Income percent.</errorMessage>
+</ValidationRule>

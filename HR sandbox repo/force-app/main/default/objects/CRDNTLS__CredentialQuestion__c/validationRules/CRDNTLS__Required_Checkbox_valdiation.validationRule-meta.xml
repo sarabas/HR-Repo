@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CRDNTLS__Required_Checkbox_valdiation</fullName>
+    <active>true</active>
+    <description>Required Checkbox should be checked only for Result Type	&quot;PickList&quot; and &quot;Text&quot;</description>
+    <errorConditionFormula>CRDNTLS__Required__c == true &amp;&amp; ( CRDNTLS__Document_Required__c == false) &amp;&amp; ( TEXT(CRDNTLS__Answer_Type__c) ==&apos;&apos; || TEXT(CRDNTLS__Answer_Type__c) ==null)</errorConditionFormula>
+    <errorMessage>Required checkbox should be checked  if Result Type is selected or Document Required checkbox is checked.</errorMessage>
+</ValidationRule>

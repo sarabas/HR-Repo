@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Notice_Date_can_be_today_or_future_date</fullName>
+    <active>false</active>
+    <description>The notice date cannot be past date . Need to be today or future date .</description>
+    <errorConditionFormula>NOT( Notice_Date__c  &gt;=  TODAY())</errorConditionFormula>
+    <errorMessage>The notice date cannot be a past date ! Select today or future date !</errorMessage>
+</ValidationRule>

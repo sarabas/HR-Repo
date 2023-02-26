@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ArdiraSurvey__Choice_Min_Answer_Count_Validation</fullName>
+    <active>true</active>
+    <errorConditionFormula>ArdiraSurvey__Multiple_Choice_Min_Answer_Count__c &gt; ArdiraSurvey__Multiple_Choice_Max_Answer_Count__c</errorConditionFormula>
+    <errorDisplayField>ArdiraSurvey__Multiple_Choice_Min_Answer_Count__c</errorDisplayField>
+    <errorMessage>This value should be less than the max answer count configured for the question.</errorMessage>
+</ValidationRule>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Recruiter_action_plan_requirement</fullName>
+    <active>true</active>
+    <description>when the candidate assessment session attended field is checked, the action plan field must be filled out.</description>
+    <errorConditionFormula>IF(
+AND(
+Candidate_assessment_session_attended__c  = True, 
+ ISBLANK( Action_Plan_Notes__c )), True, False)</errorConditionFormula>
+    <errorMessage>Please fill in the Action Plan Notes.</errorMessage>
+</ValidationRule>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ArdiraSurvey__Video_Link_Required_Validation</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND (
+ISPICKVAL(ArdiraSurvey__Type__c , &quot;Video&quot;) ,
+ISBLANK( ArdiraSurvey__Video_File_or_Link__c ) 
+)</errorConditionFormula>
+    <errorDisplayField>ArdiraSurvey__Video_File_or_Link__c</errorDisplayField>
+    <errorMessage>Video File Name or Link is required.</errorMessage>
+</ValidationRule>

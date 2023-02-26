@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Learning_Path_should_be_Active</fullName>
+    <active>true</active>
+    <description>Only Active learning path can be assigned to a candidate</description>
+    <errorConditionFormula>not(ISPICKVAL( Learning_Path__r.Status__c , &quot;Active&quot;))</errorConditionFormula>
+    <errorDisplayField>Learning_Path__c</errorDisplayField>
+    <errorMessage>Only Active learning path can be assigned to a candidate</errorMessage>
+</ValidationRule>

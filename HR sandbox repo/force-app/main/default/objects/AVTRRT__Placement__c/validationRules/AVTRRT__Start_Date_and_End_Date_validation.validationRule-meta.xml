@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AVTRRT__Start_Date_and_End_Date_validation</fullName>
+    <active>true</active>
+    <errorConditionFormula>AVTRRT__Start_Date__c &gt; AVTRRT__End_Date__c</errorConditionFormula>
+    <errorDisplayField>AVTRRT__End_Date__c</errorDisplayField>
+    <errorMessage>End Date can&apos;t be less than Start Date</errorMessage>
+</ValidationRule>

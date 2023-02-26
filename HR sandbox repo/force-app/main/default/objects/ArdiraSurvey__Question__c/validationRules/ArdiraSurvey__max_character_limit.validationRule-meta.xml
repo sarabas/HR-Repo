@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ArdiraSurvey__max_character_limit</fullName>
+    <active>true</active>
+    <errorConditionFormula>ArdiraSurvey__Text_Max_Length__c &gt; 32768</errorConditionFormula>
+    <errorDisplayField>ArdiraSurvey__Text_Max_Length__c</errorDisplayField>
+    <errorMessage>Max character limit is 32768.</errorMessage>
+</ValidationRule>

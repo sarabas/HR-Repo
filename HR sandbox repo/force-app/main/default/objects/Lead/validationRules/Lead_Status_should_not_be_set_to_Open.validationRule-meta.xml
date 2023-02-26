@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Lead_Status_should_not_be_set_to_Open</fullName>
+    <active>true</active>
+    <description>User should not be able to set Lead Status to &apos;Open&apos; for all the leads from Lead Source &apos;Job by Candidate&apos;</description>
+    <errorConditionFormula>AND(
+    AND
+   (
+      ISPICKVAL(LeadSource , &quot;Job by Candidate&quot;),
+      ISCHANGED(Status),
+      ISPICKVAL(Status, &quot;Open&quot;), 
+        OR(ISPICKVAL(PRIORVALUE(Status), &quot;Contacted&quot;), 
+           ISPICKVAL(PRIORVALUE(Status), &quot;In Progress&quot;),
+           ISPICKVAL(PRIORVALUE(Status), &quot;Opportunity Closed&quot;))
+        
+))</errorConditionFormula>
+    <errorMessage>You do not have permission to change Lead Status to Open</errorMessage>
+</ValidationRule>

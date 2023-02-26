@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ArdiraSurvey__Survey_Unique_Name</fullName>
+    <active>true</active>
+    <description>Validation rule to check if the survey name is unique or not.</description>
+    <errorConditionFormula>AND(
+  CONTAINS(
+      VLOOKUP( 
+        $ObjectType.ArdiraSurvey__Survey__c.Fields.Name , 
+        $ObjectType.ArdiraSurvey__Survey__c.Fields.Name, Name
+      ), 
+      Name
+    ), 
+  OR(
+      ISNEW(), ISCHANGED(Name)
+    ) 
+  )</errorConditionFormula>
+    <errorMessage>You cannot create survey with same name.</errorMessage>
+</ValidationRule>

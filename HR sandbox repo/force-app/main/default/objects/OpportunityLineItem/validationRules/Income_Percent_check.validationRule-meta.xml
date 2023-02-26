@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Income_Percent_check</fullName>
+    <active>true</active>
+    <description>Verify that Income percent in not more than 99%</description>
+    <errorConditionFormula>AND( 
+Product2.Name =  $CustomMetadata.Opportunity_Prod_Setting__mdt.Income_sharing.Prod_Value__c , Income_Percent__c &gt;0.99)</errorConditionFormula>
+    <errorDisplayField>Candidate__c</errorDisplayField>
+    <errorMessage>Income percent cannot exceed 99%</errorMessage>
+</ValidationRule>

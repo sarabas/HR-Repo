@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Joining_Date_Validation</fullName>
+    <active>true</active>
+    <description>Membership joining date is not equal to today&apos;s date</description>
+    <errorConditionFormula>Membership_Joining_Date__c&lt;&gt;TODAY()</errorConditionFormula>
+    <errorDisplayField>Membership_Joining_Date__c</errorDisplayField>
+    <errorMessage>Membership joining date should be today&apos;s date.</errorMessage>
+</ValidationRule>

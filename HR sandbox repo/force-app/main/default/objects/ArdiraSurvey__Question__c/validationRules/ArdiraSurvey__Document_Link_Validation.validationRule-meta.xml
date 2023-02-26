@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ArdiraSurvey__Document_Link_Validation</fullName>
+    <active>true</active>
+    <description>Validate Document link format.</description>
+    <errorConditionFormula>IF( OR( ISBLANK(ArdiraSurvey__Document_Link__c) , REGEX(ArdiraSurvey__Document_Link__c, &quot;^((ftp|http|https)://)[^ \&quot;]+$&quot; ) ) , false, true)</errorConditionFormula>
+    <errorDisplayField>ArdiraSurvey__Document_Link__c</errorDisplayField>
+    <errorMessage>URL is not of correct format. It has to start with http:// or https://</errorMessage>
+</ValidationRule>

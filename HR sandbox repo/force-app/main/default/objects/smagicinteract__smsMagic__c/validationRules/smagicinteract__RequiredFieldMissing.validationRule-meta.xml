@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>smagicinteract__RequiredFieldMissing</fullName>
+    <active>true</active>
+    <errorConditionFormula>OR( ISBLANK(smagicinteract__PhoneNumber__c), 
+ AND( ISBLANK( smagicinteract__SenderId__c),
+       NOT(OR(ISPICKVAL(smagicinteract__Use_Default_Sender__c,&apos;Record Owner&apos;),
+          ISPICKVAL(smagicinteract__Use_Default_Sender__c,&apos;Current User&apos;)
+         ))
+   ),
+ AND( ISPICKVAL(smagicinteract__Message_Type__c,&apos;SMS&apos;),
+   ISBLANK( smagicinteract__SMSText__c ),
+   ISBLANK(smagicinteract__SMS_Template__c)  
+   )
+)</errorConditionFormula>
+    <errorMessage>SenderId, Mobile Number and SMS Text are mandatory to send Message</errorMessage>
+</ValidationRule>

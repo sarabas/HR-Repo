@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Dates_validation</fullName>
+    <active>false</active>
+    <description>The End date will be greater than the start date and the end date greater than the current date</description>
+    <errorConditionFormula>OR( 
+End_Date__c  &lt;  Start_Date__c,
+End_Date__c  &lt; TODAY())</errorConditionFormula>
+    <errorMessage>Please re-check the Start and End dates of the Learning Path selected
+1. The start date and End date should not be earlier than today
+2.  The End date should not be earlier than the Start date.</errorMessage>
+</ValidationRule>

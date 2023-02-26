@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Exit_Int_Date_btw_notice_and_Exit_Date</fullName>
+    <active>true</active>
+    <description>The Candidate needs to be mention the date between notice and Exit date and not before or later .</description>
+    <errorConditionFormula>AND( 
+
+Exit_Interview_Date__c   &lt;   DATETIMEVALUE(Notice_Date__c )  || 
+ Exit_Interview_Date__c  &gt;  DATETIMEVALUE(  Exit_Date__c  ) 
+
+)</errorConditionFormula>
+    <errorMessage>The Exit Interview date need to be between Notice and Exit date and not before or later !!</errorMessage>
+</ValidationRule>

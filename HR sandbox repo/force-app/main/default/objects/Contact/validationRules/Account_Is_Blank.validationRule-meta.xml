@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Account_Is_Blank</fullName>
+    <active>true</active>
+    <description>The Advisor Contact should be associated with Account.</description>
+    <errorConditionFormula>IF( Is_Advisor__c ,ISBLANK(  AVTRRT__Account_Name__c  ),null)</errorConditionFormula>
+    <errorMessage>Please select an Account Name.</errorMessage>
+</ValidationRule>

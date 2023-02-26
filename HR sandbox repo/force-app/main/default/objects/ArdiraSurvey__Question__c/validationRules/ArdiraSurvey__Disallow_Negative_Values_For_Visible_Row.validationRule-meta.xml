@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ArdiraSurvey__Disallow_Negative_Values_For_Visible_Row</fullName>
+    <active>true</active>
+    <errorConditionFormula>ArdiraSurvey__C_Text_Number_Of_Visible_Rows__c &lt; 0</errorConditionFormula>
+    <errorDisplayField>ArdiraSurvey__C_Text_Number_Of_Visible_Rows__c</errorDisplayField>
+    <errorMessage>Negative values are not allowed for this field.</errorMessage>
+</ValidationRule>

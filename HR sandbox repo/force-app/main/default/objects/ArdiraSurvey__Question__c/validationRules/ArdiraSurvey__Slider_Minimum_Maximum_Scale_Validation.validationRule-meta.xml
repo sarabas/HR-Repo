@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ArdiraSurvey__Slider_Minimum_Maximum_Scale_Validation</fullName>
+    <active>true</active>
+    <errorConditionFormula>ArdiraSurvey__Min_Scale__c &gt;= ArdiraSurvey__Max_Scale__c</errorConditionFormula>
+    <errorDisplayField>ArdiraSurvey__Min_Scale__c</errorDisplayField>
+    <errorMessage>Slider minimum scale range should not more than maximum scale</errorMessage>
+</ValidationRule>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ArdiraSurvey__Decimal_Places_Validation</fullName>
+    <active>true</active>
+    <errorConditionFormula>ArdiraSurvey__Decimal_Places__c &lt; 0  ||  ArdiraSurvey__Decimal_Places__c &gt; 15</errorConditionFormula>
+    <errorDisplayField>ArdiraSurvey__Decimal_Places__c</errorDisplayField>
+    <errorMessage>This value should be between 0 to 15</errorMessage>
+</ValidationRule>

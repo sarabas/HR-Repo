@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>TRGTFCMS__Account_Validation</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND 
+( ISBLANK(AVTRRT__Account_Name__c) 
+, NOT( ISBLANK(FCMS__CMSProfile__c) )  
+, NOT( ISBLANK(FCMS__UserName__c) )
+)</errorConditionFormula>
+    <errorMessage>Please link the candidate to the Account  by entering Account Name in the Account field</errorMessage>
+</ValidationRule>

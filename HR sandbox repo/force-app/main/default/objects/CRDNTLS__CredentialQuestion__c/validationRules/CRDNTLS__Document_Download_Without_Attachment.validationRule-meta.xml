@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CRDNTLS__Document_Download_Without_Attachment</fullName>
+    <active>true</active>
+    <description>If Document Document checkbox is checked without attaching document, it will give error</description>
+    <errorConditionFormula>CRDNTLS__Document_Download__c == true &amp;&amp;  (CRDNTLS__Attachment_Id__c ==&apos;&apos; || CRDNTLS__Attachment_Id__c ==null)</errorConditionFormula>
+    <errorMessage>Please upload the document and Select Document Download option</errorMessage>
+</ValidationRule>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ArdiraSurvey__Survey_Auto_Close_Date</fullName>
+    <active>true</active>
+    <description>Validation rule to make sure that a newly created survey does not have auto close date in the past or the auto close date of an existing survey is not updated to be in the past.</description>
+    <errorConditionFormula>IF( ISNEW(),
+  AND( NOT(ISBLANK(ArdiraSurvey__CT_Auto_Close_Date__c)), 
+    ArdiraSurvey__CT_Auto_Close_Date__c  &lt;  TODAY()
+  ), 
+  AND( NOT(ISBLANK(ArdiraSurvey__CT_Auto_Close_Date__c)), 
+    ISCHANGED(ArdiraSurvey__CT_Auto_Close_Date__c), 
+    ArdiraSurvey__CT_Auto_Close_Date__c  &lt;  TODAY()
+  )
+)</errorConditionFormula>
+    <errorDisplayField>ArdiraSurvey__CT_Auto_Close_Date__c</errorDisplayField>
+    <errorMessage>Survey auto close date cannot be in the past.</errorMessage>
+</ValidationRule>

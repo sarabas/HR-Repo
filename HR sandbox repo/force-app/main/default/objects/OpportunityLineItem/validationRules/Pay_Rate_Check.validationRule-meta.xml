@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Pay_Rate_Check</fullName>
+    <active>true</active>
+    <description>Verify that Pay Rate is less than or equal to Bill Rate</description>
+    <errorConditionFormula>AND( Hrs_per_week__c &gt;0,Pay_rate__c &gt;  Bill_Rate__c)</errorConditionFormula>
+    <errorDisplayField>Pay_rate__c</errorDisplayField>
+    <errorMessage>Pay Rate has to be less than Bill Rate</errorMessage>
+</ValidationRule>

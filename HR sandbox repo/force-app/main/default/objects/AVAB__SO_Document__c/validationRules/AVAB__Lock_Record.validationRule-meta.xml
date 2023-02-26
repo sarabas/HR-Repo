@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AVAB__Lock_Record</fullName>
+    <active>false</active>
+    <description>Locks the record from further edits</description>
+    <errorConditionFormula>PRIORVALUE( AVAB__Edit_Status__c ) == &apos;Locked&apos;</errorConditionFormula>
+    <errorMessage>The record is locked and cannot be edited</errorMessage>
+</ValidationRule>
