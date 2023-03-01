@@ -14,6 +14,8 @@ public class CandidateLeadExtTest {
        testLead.Title = 'Test Title';
        testLead.Email = 'Test@email.com'; 
        testLead.Mom__c = 'mom name';
+
+       
        Test.startTest();
        ApexPages.StandardController sc = new ApexPages.StandardController(testLead); 
        CandidateLeadExt candLead = new CandidateLeadExt(sc);
